@@ -28,9 +28,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
       <body className="min-h-full flex flex-col">
-        <QueryProviders>
-          {children}
-          </QueryProviders>
+        <QueryProviders
+        {children}
         </body>
     </html>
   );
