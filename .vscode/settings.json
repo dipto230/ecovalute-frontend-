@@ -1,3 +1,4 @@
 {
-    "prisma-smart-formatter.typescript.defaultFormatter": "esbenp.prettier-vscode"
+    "prisma-smart-formatter.typescript.defaultFormatter": "esbenp.prettier-vscode",
+    "compile-hero.disable-compile-files-on-did-save-code": false
 }
