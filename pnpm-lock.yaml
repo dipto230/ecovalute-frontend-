@@ -26,6 +26,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.102.8
         version: 5.102.8(react@19.2.8)
+      '@tanstack/react-query-next-experimental':
+        specifier: ^5.103.1
+        version: 5.103.1(@tanstack/react-query@5.102.8(react@19.2.8))(next@16.3.5(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       axios:
         specifier: ^1.20.0
         version: 1.20.0
@@ -884,6 +887,13 @@ packages:
     peerDependenciesMeta:
       '@tanstack/react-start':
         optional: true
+
+  '@tanstack/react-query-next-experimental@5.103.1':
+    resolution: {integrity: sha512-DRLlFth+KPWdv8kWwpuhEA30NKcA0iUfEyn3Zdq3rUhdxW/WyEg1WF3T+l4YkaD3HMjoZfDu5FplKa4ZFWPehg==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.103.1
+      next: ^13 || ^14 || ^15 || ^16
+      react: ^18 || ^19
 
   '@tanstack/react-query@5.102.8':
     resolution: {integrity: sha512-TYBea4OuXWD7MhaSHq069TWbFe7rcwWN6kzT7JF0OKi1K6c1gTv2IzD6A6ExJsCMozdkqBWeuIUZmu4KQg0O5A==}
@@ -4072,6 +4082,12 @@ snapshots:
       react: 19.2.8
     transitivePeerDependencies:
       - react-dom
+
+  '@tanstack/react-query-next-experimental@5.103.1(@tanstack/react-query@5.102.8(react@19.2.8))(next@16.3.5(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)':
+    dependencies:
+      '@tanstack/react-query': 5.102.8(react@19.2.8)
+      next: 16.3.5(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      react: 19.2.8
 
   '@tanstack/react-query@5.102.8(react@19.2.8)':
     dependencies:

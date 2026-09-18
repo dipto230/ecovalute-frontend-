@@ -4,6 +4,7 @@
 exports.__esModule = true;
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 var react_query_1 = require("@tanstack/react-query");
+var react_query_next_experimental_1 = require("@tanstack/react-query-next-experimental");
 function makeQueryClient() {
     return new react_query_1.QueryClient({
         defaultOptions: {
@@ -38,6 +39,7 @@ function QueryProviders(_a) {
     //       suspend because React will throw away the client on the initial
     //       render if it suspends and there is no boundary
     var queryClient = getQueryClient();
-    return (React.createElement(react_query_1.QueryClientProvider, { client: queryClient }, children));
+    return (React.createElement(react_query_1.QueryClientProvider, { client: queryClient },
+        React.createElement(react_query_next_experimental_1.ReactQueryStreamedHydration, null, children)));
 }
 exports["default"] = QueryProviders;
