@@ -333,6 +333,9 @@ const VendorDetailsPage = async ({
             <Separator />
 
 
+            {/* =================================================
+                QUICK INFORMATION
+            ================================================== */}
             <CardContent className="space-y-5 p-5">
 
               {/* Email */}
