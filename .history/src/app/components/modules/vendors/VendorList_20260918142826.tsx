@@ -1,0 +1,9 @@
+import { getVendors } from "@/src/app/(commonLayout)/marketplace/vendors/[id]/_action"
+import { useQuery } from "@tanstack/react-query"
+
+const VendorList = () => {
+    const { data } = useQuery({
+        queryKey: ["vendors"],
+        queryFn: ()=> getVendors(),
+    })
+}

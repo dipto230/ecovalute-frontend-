@@ -1,0 +1,12 @@
+import React from 'react'
+import { QueryClient } from '@tanstack/react-query';
+
+const MarketPlaceVendorsByIdPage = async () => {
+  
+  await qu
+  return (
+    <div>MarketPlaceVendorsByIdPage</div>
+  )
+}
+
+export default MarketPlaceVendorsByIdPage
