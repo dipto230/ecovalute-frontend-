@@ -1,20 +1,13 @@
 "use client"
-import { loginAction } from "@/src/app/(commonLayout)/(authRouteGroup)/login/_action";
-import { ILoginPayload, loginZodSchema } from "@/src/zod/auth.validation";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-
-
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ILoginPayload, loginZodSchema } from "@/zod/auth.validation";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../ui/card";
-import AppField from "../../shared/form/AppField";
-import { Button } from "../../ui/button";
-import { Alert, AlertDescription } from "../../ui/alert";
-import AppSubmitButton from "../../shared/form/AppSubmitButton";
 
 interface LoginFormProps {
     redirectPath ?: string;
@@ -153,7 +146,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             </span>
           </div>
         </div>
-            
+
         <Button variant="outline" className="w-full" onClick={() => {
             const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
             //TODO redirect path after login in frontend

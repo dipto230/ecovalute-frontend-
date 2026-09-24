@@ -10,7 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../ui/card";
+import { Card, CardContent, CardDescription, CardTitle } from "../../ui/card";
 import AppField from "../../shared/form/AppField";
 import { Button } from "../../ui/button";
 import { Alert, AlertDescription } from "../../ui/alert";
@@ -153,7 +153,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             </span>
           </div>
         </div>
-            
+
         <Button variant="outline" className="w-full" onClick={() => {
             const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
             //TODO redirect path after login in frontend

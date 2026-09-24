@@ -39,12 +39,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.loginAction = void 0;
+var authUtils_1 = require("@/lib/authUtils");
 var httpClient_1 = require("@/lib/axios/httpClient");
 var tokenUtils_1 = require("@/lib/tokenUtils");
 var auth_validation_1 = require("@/src/zod/auth.validation");
 var navigation_1 = require("next/navigation");
-exports.loginAction = function (payload) { return __awaiter(void 0, void 0, Promise, function () {
-    var parsedPayload, firstError, response, _a, accessToken, refreshToken, token, error_1;
+exports.loginAction = function (payload, redirectPath) { return __awaiter(void 0, void 0, Promise, function () {
+    var parsedPayload, firstError, response, _a, accessToken, refreshToken, token, user, role, emailVerified, needPasswordChange, email, targetPath, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -62,8 +63,8 @@ exports.loginAction = function (payload) { return __awaiter(void 0, void 0, Prom
                 return [4 /*yield*/, httpClient_1.httpClient.post("/auth/login", parsedPayload.data)];
             case 2:
                 response = _b.sent();
-                console.log(response.data);
-                _a = response.data, accessToken = _a.accessToken, refreshToken = _a.refreshToken, token = _a.token;
+                _a = response.data, accessToken = _a.accessToken, refreshToken = _a.refreshToken, token = _a.token, user = _a.user;
+                role = user.role, emailVerified = user.emailVerified, needPasswordChange = user.needPasswordChange, email = user.email;
                 return [4 /*yield*/, tokenUtils_1.setTokenInCookies("accessToken", accessToken)];
             case 3:
                 _b.sent();
@@ -73,12 +74,26 @@ exports.loginAction = function (payload) { return __awaiter(void 0, void 0, Prom
                 return [4 /*yield*/, tokenUtils_1.setTokenInCookies("better-auth.session_token", token, 24 * 60 * 60)];
             case 5:
                 _b.sent(); // 1 day in seconds
-                navigation_1.redirect("/dashboard");
+                // if(!emailVerified){
+                //     redirect("/verify-email");
+                // }else // in the catch block
+                if (needPasswordChange) {
+                    //TODO : refactoring
+                    navigation_1.redirect("/reset-password?email=" + email);
+                }
+                else {
+                    targetPath = redirectPath && authUtils_1.isValidRedirectForRole(redirectPath, role) ? redirectPath : getDefaultDashboardRoute(role);
+                    navigation_1.redirect(targetPath);
+                }
                 return [3 /*break*/, 7];
             case 6:
                 error_1 = _b.sent();
+                console.log(error_1, "error");
                 if (error_1 && typeof error_1 === "object" && "digest" in error_1 && typeof error_1.digest === "string" && error_1.digest.startsWith("NEXT_REDIRECT")) {
                     throw error_1;
+                }
+                if (error_1 && error_1.response && error_1.response.data.message === "Email not verified") {
+                    navigation_1.redirect("/verify-email?email=" + payload.email);
                 }
                 return [2 /*return*/, {
                         success: false,

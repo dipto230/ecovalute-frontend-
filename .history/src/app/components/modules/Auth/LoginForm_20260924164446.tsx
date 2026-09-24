@@ -153,7 +153,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             </span>
           </div>
         </div>
-            
+
         <Button variant="outline" className="w-full" onClick={() => {
             const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
             //TODO redirect path after login in frontend

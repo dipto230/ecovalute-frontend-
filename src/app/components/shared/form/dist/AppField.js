@@ -1,9 +1,9 @@
 "use strict";
 exports.__esModule = true;
-var input_1 = require("@/components/ui/input");
-var label_1 = require("@/components/ui/label");
 var utils_1 = require("@/lib/utils");
 var react_1 = require("react");
+var label_1 = require("../../ui/label");
+var input_1 = require("../../ui/input");
 var getErrorMessage = function (error) {
     if (typeof error === "string")
         return error;

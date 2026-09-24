@@ -2,8 +2,6 @@
 import { cn } from "@/lib/utils";
 import type { AnyFieldApi } from "@tanstack/react-form";
 import React from "react";
-import { Label } from "../../ui/label";
-import { Input } from "../../ui/input";
 
 const getErrorMessage = (error : unknown) : string => {
     if (typeof error === "string") return error;
