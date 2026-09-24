@@ -1,3 +1,0 @@
-const VendorList = () => {
-    const {data} = 
-}

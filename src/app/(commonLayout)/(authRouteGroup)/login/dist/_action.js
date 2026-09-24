@@ -82,7 +82,7 @@ exports.loginAction = function (payload, redirectPath) { return __awaiter(void 0
                     navigation_1.redirect("/reset-password?email=" + email);
                 }
                 else {
-                    targetPath = redirectPath && authUtils_1.isValidRedirectForRole(redirectPath, role) ? redirectPath : getDefaultDashboardRoute(role);
+                    targetPath = redirectPath && authUtils_1.isValidRedirectForRole(redirectPath, role) ? redirectPath : authUtils_1.getDefaultDashboardRoute(role);
                     navigation_1.redirect(targetPath);
                 }
                 return [3 /*break*/, 7];

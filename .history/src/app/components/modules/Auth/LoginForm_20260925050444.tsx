@@ -322,7 +322,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               `}
             />
 
-           
+            {/* Bottom gradient */}
 
             <div
               className={`
@@ -337,7 +337,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               `}
             />
 
-          
+            {/* Green ambient glow */}
 
             <div
               className={`
@@ -353,7 +353,9 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               `}
             />
 
-           
+            {/* ================================================= */}
+            {/* HERO CONTENT */}
+            {/* ================================================= */}
 
             <div
               className={`
@@ -370,7 +372,9 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                 xl:p-14
               `}
             >
-            
+              {/* ================================================= */}
+              {/* BRAND */}
+              {/* ================================================= */}
 
               <div className="animate-[cardEnter_.7s_ease-out]">
                 <div className="flex items-center gap-4">

@@ -322,7 +322,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               `}
             />
 
-           
+            {/* Bottom gradient */}
 
             <div
               className={`
@@ -337,7 +337,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               `}
             />
 
-          
+            {/* Green ambient glow */}
 
             <div
               className={`

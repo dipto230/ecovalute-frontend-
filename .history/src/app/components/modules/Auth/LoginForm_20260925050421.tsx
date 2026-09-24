@@ -322,7 +322,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               `}
             />
 
-           
+            {/* Bottom gradient */}
 
             <div
               className={`
@@ -337,7 +337,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               `}
             />
 
-          
+            {/* Green ambient glow */}
 
             <div
               className={`
@@ -353,7 +353,9 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               `}
             />
 
-           
+            {/* ================================================= */}
+            {/* HERO CONTENT */}
+            {/* ================================================= */}
 
             <div
               className={`
@@ -370,7 +372,9 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                 xl:p-14
               `}
             >
-            
+              {/* ================================================= */}
+              {/* BRAND */}
+              {/* ================================================= */}
 
               <div className="animate-[cardEnter_.7s_ease-out]">
                 <div className="flex items-center gap-4">
@@ -434,7 +438,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                 </div>
               </div>
 
-           
+              {/* ================================================= */}
+              {/* HERO TEXT */}
+              {/* ================================================= */}
+
               <div
                 className={`
                   max-w-[650px]
@@ -512,7 +519,9 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                   tomorrow.
                 </p>
 
-             
+                {/* ================================================= */}
+                {/* FEATURES */}
+                {/* ================================================= */}
 
                 <div
                   className={`
@@ -570,6 +579,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 
                   <div className="hidden h-10 w-px bg-white/20 sm:block" />
 
+                  {/* Feature 2 */}
 
                   <div
                     className={`
@@ -616,7 +626,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 
                   <div className="hidden h-10 w-px bg-white/20 sm:block" />
 
-                
+                  {/* Feature 3 */}
 
                   <div
                     className={`

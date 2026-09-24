@@ -1,4 +1,3 @@
-
 "use client";
 
 import { loginAction } from "@/src/app/(commonLayout)/(authRouteGroup)/login/_action";
@@ -117,7 +116,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
       {/* ========================================================= */}
 
       <div
-        className={`
+        className="
           pointer-events-none
           fixed
           z-[60]
@@ -129,7 +128,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
           bg-emerald-300/10
           blur-[80px]
           lg:block
-        `}
+        "
         style={{
           left: `calc(50% + ${mousePosition.x * 180}px)`,
           top: `calc(50% + ${mousePosition.y * 180}px)`,
@@ -146,7 +145,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
         {/* Top left glow */}
 
         <div
-          className={`
+          className="
             absolute
             -left-40
             -top-40
@@ -156,13 +155,13 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             bg-emerald-400/10
             blur-[120px]
             animate-[blob_10s_ease-in-out_infinite]
-          `}
+          "
         />
 
         {/* Bottom right glow */}
 
         <div
-          className={`
+          className="
             absolute
             -bottom-40
             -right-40
@@ -172,13 +171,13 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             bg-lime-400/10
             blur-[130px]
             animate-[blob_12s_ease-in-out_infinite_reverse]
-          `}
+          "
         />
 
         {/* Center glow */}
 
         <div
-          className={`
+          className="
             absolute
             left-1/2
             top-1/2
@@ -190,13 +189,13 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             bg-emerald-300/10
             blur-[100px]
             animate-[glowPulse_7s_ease-in-out_infinite]
-          `}
+          "
         />
 
         {/* Floating particles */}
 
         <div
-          className={`
+          className="
             absolute
             left-[8%]
             top-[20%]
@@ -205,11 +204,11 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             rounded-full
             bg-emerald-300/50
             animate-[particle_5s_ease-in-out_infinite]
-          `}
+          "
         />
 
         <div
-          className={`
+          className="
             absolute
             left-[42%]
             top-[12%]
@@ -218,11 +217,11 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             rounded-full
             bg-green-300/40
             animate-[particle_6s_ease-in-out_infinite_1s]
-          `}
+          "
         />
 
         <div
-          className={`
+          className="
             absolute
             right-[10%]
             top-[25%]
@@ -231,11 +230,11 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             rounded-full
             bg-lime-300/50
             animate-[particle_7s_ease-in-out_infinite_2s]
-          `}
+          "
         />
 
         <div
-          className={`
+          className="
             absolute
             bottom-[18%]
             left-[45%]
@@ -244,7 +243,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             rounded-full
             bg-emerald-300/40
             animate-[particle_5s_ease-in-out_infinite_2s]
-          `}
+          "
         />
       </div>
 
@@ -254,28 +253,28 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 
       <div className="relative z-10 min-h-screen lg:p-5">
         <div
-          className={`
+          className="
             grid
             min-h-screen
             overflow-hidden
             lg:min-h-[calc(100vh-40px)]
             lg:grid-cols-[1.05fr_0.95fr]
             lg:rounded-[28px]
-          `}
+          "
         >
           {/* ===================================================== */}
           {/* LEFT SIDE — HERO */}
           {/* ===================================================== */}
 
           <section
-            className={`
+            className="
               relative
               order-2
               min-h-[650px]
               overflow-hidden
               lg:order-1
               lg:min-h-0
-            `}
+            "
           >
             {/* ================================================= */}
             {/* HERO IMAGE */}
@@ -287,12 +286,12 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className={`
+              className="
                 object-cover
                 scale-[1.03]
                 transition-transform
                 duration-1000
-              `}
+              "
               style={{
                 transform: `
                   scale(1.03)
@@ -312,20 +311,20 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             {/* ================================================= */}
 
             <div
-              className={`
+              className="
                 absolute
                 inset-0
                 bg-gradient-to-br
                 from-[#00383b]/95
                 via-[#064b45]/70
                 to-[#0b5c48]/45
-              `}
+              "
             />
 
-           
+            {/* Bottom gradient */}
 
             <div
-              className={`
+              className="
                 absolute
                 inset-x-0
                 bottom-0
@@ -334,13 +333,13 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                 from-[#022f32]
                 via-[#033b39]/65
                 to-transparent
-              `}
+              "
             />
 
-          
+            {/* Green ambient glow */}
 
             <div
-              className={`
+              className="
                 absolute
                 -left-20
                 bottom-20
@@ -350,13 +349,15 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                 bg-emerald-400/20
                 blur-[100px]
                 animate-[glowPulse_6s_ease-in-out_infinite]
-              `}
+              "
             />
 
-           
+            {/* ================================================= */}
+            {/* HERO CONTENT */}
+            {/* ================================================= */}
 
             <div
-              className={`
+              className="
                 relative
                 z-10
                 flex
@@ -368,35 +369,37 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                 lg:min-h-full
                 lg:p-12
                 xl:p-14
-              `}
+              "
             >
-            
+              {/* ================================================= */}
+              {/* BRAND */}
+              {/* ================================================= */}
 
               <div className="animate-[cardEnter_.7s_ease-out]">
                 <div className="flex items-center gap-4">
                   <div
-                    className={`
+                    className="
                       relative
                       flex
                       size-16
                       shrink-0
                       items-center
                       justify-center
-                    `}
+                    "
                   >
                     <div
-                      className={`
+                      className="
                         absolute
                         inset-0
                         rounded-full
                         bg-emerald-400/20
                         blur-xl
                         animate-[glowPulse_5s_ease-in-out_infinite]
-                      `}
+                      "
                     />
 
                     <div
-                      className={`
+                      className="
                         relative
                         flex
                         size-14
@@ -410,7 +413,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         shadow-xl
                         shadow-emerald-900/30
                         animate-[leafFloat_5s_ease-in-out_infinite]
-                      `}
+                      "
                     >
                       <Leaf
                         className="size-8"
@@ -434,15 +437,18 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                 </div>
               </div>
 
-           
+              {/* ================================================= */}
+              {/* HERO TEXT */}
+              {/* ================================================= */}
+
               <div
-                className={`
+                className="
                   max-w-[650px]
                   animate-[heroText_1s_ease-out]
-                `}
+                "
               >
                 <div
-                  className={`
+                  className="
                     mb-5
                     inline-flex
                     items-center
@@ -461,24 +467,24 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                     duration-500
                     hover:border-emerald-300/40
                     hover:bg-emerald-900/40
-                  `}
+                  "
                 >
                   <Recycle className="size-4 text-lime-300" />
 
                   <span>Smart E-Waste Marketplace</span>
 
                   <span
-                    className={`
+                    className="
                       size-1.5
                       rounded-full
                       bg-lime-300
                       animate-pulse
-                    `}
+                    "
                   />
                 </div>
 
                 <h1
-                  className={`
+                  className="
                     text-4xl
                     font-bold
                     leading-[1.08]
@@ -486,20 +492,20 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                     text-white
                     sm:text-5xl
                     xl:text-6xl
-                  `}
+                  "
                 >
                   Turn Your Old Devices
                   <br />
 
                   <span
-                    className={`
+                    className="
                       bg-gradient-to-r
                       from-lime-300
                       via-emerald-300
                       to-green-300
                       bg-clip-text
                       text-transparent
-                    `}
+                    "
                   >
                     into New Opportunities
                   </span>
@@ -512,21 +518,23 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                   tomorrow.
                 </p>
 
-             
+                {/* ================================================= */}
+                {/* FEATURES */}
+                {/* ================================================= */}
 
                 <div
-                  className={`
+                  className="
                     mt-8
                     flex
                     flex-wrap
                     items-center
                     gap-y-5
-                  `}
+                  "
                 >
                   {/* Feature 1 */}
 
                   <div
-                    className={`
+                    className="
                       group
                       flex
                       items-center
@@ -535,10 +543,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                       transition-transform
                       duration-500
                       hover:-translate-y-1
-                    `}
+                    "
                   >
                     <div
-                      className={`
+                      className="
                         flex
                         size-11
                         items-center
@@ -552,7 +560,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         duration-500
                         group-hover:scale-110
                         group-hover:bg-lime-300/20
-                      `}
+                      "
                     >
                       <Recycle className="size-6" />
                     </div>
@@ -570,9 +578,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 
                   <div className="hidden h-10 w-px bg-white/20 sm:block" />
 
+                  {/* Feature 2 */}
 
                   <div
-                    className={`
+                    className="
                       group
                       flex
                       items-center
@@ -581,10 +590,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                       transition-transform
                       duration-500
                       hover:-translate-y-1
-                    `}
+                    "
                   >
                     <div
-                      className={`
+                      className="
                         flex
                         size-11
                         items-center
@@ -598,7 +607,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         duration-500
                         group-hover:scale-110
                         group-hover:bg-emerald-300/20
-                      `}
+                      "
                     >
                       <ShieldCheck className="size-6" />
                     </div>
@@ -616,10 +625,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 
                   <div className="hidden h-10 w-px bg-white/20 sm:block" />
 
-                
+                  {/* Feature 3 */}
 
                   <div
-                    className={`
+                    className="
                       group
                       flex
                       items-center
@@ -628,10 +637,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                       transition-transform
                       duration-500
                       hover:-translate-y-1
-                    `}
+                    "
                   >
                     <div
-                      className={`
+                      className="
                         flex
                         size-11
                         items-center
@@ -645,7 +654,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         duration-500
                         group-hover:scale-110
                         group-hover:bg-lime-300/20
-                      `}
+                      "
                     >
                       <Leaf className="size-6" />
                     </div>
@@ -663,18 +672,20 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                 </div>
               </div>
 
-            
+              {/* ================================================= */}
+              {/* BOTTOM QUOTE */}
+              {/* ================================================= */}
 
               <div
-                className={`
+                className="
                   flex
                   items-center
                   gap-3
                   animate-[floatCard_6s_ease-in-out_infinite]
-                `}
+                "
               >
                 <div
-                  className={`
+                  className="
                     flex
                     size-9
                     items-center
@@ -682,7 +693,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                     rounded-xl
                     bg-lime-300/15
                     text-lime-300
-                  `}
+                  "
                 >
                   <Leaf className="size-5" />
                 </div>
@@ -699,16 +710,18 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               </div>
             </div>
 
-            
+            {/* ================================================= */}
+            {/* SPARKLE */}
+            {/* ================================================= */}
 
             <div
-              className={`
+              className="
                 absolute
                 right-8
                 top-24
                 z-20
                 animate-[sparkle_3s_ease-in-out_infinite]
-              `}
+              "
               style={{
                 transform: `
                   translate3d(
@@ -725,10 +738,12 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             </div>
           </section>
 
-         
+          {/* ===================================================== */}
+          {/* RIGHT SIDE — LOGIN */}
+          {/* ===================================================== */}
 
           <section
-            className={`
+            className="
               order-1
               flex
               min-h-screen
@@ -742,10 +757,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               lg:min-h-0
               lg:px-12
               xl:px-16
-            `}
+            "
           >
             <Card
-              className={`
+              className="
                 relative
                 w-full
                 max-w-[650px]
@@ -759,7 +774,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                 duration-500
                 hover:shadow-[0_35px_100px_-25px_rgba(15,23,42,0.22)]
                 animate-[cardEnter_.7s_ease-out]
-              `}
+              "
               style={{
                 transform: `
                   translate3d(
@@ -772,10 +787,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                   "transform 600ms cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             >
-            
+              {/* Top Green Line */}
 
               <div
-                className={`
+                className="
                   absolute
                   left-0
                   right-0
@@ -785,36 +800,38 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                   from-emerald-500
                   via-green-500
                   to-lime-400
-                `}
+                "
               />
 
-              
+              {/* Decorative leaf */}
 
               <div
-                className={`
+                className="
                   pointer-events-none
                   absolute
                   -right-5
                   -top-5
                   opacity-10
                   animate-[leafFloat_7s_ease-in-out_infinite]
-                `}
+                "
               >
                 <Leaf className="size-28 rotate-12 text-emerald-500" />
               </div>
 
               <CardHeader className="px-7 pb-4 pt-9 sm:px-10 sm:pt-11">
-              
+                {/* ================================================= */}
+                {/* REGISTER */}
+                {/* ================================================= */}
 
                 <div
-                  className={`
+                  className="
                     mb-12
                     flex
                     items-center
                     justify-end
                     gap-2
                     text-sm
-                  `}
+                  "
                 >
                   <span className="text-slate-500">
                     New here?
@@ -822,7 +839,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 
                   <Link
                     href="/register"
-                    className={`
+                    className="
                       group
                       inline-flex
                       items-center
@@ -831,32 +848,34 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                       text-emerald-600
                       transition-colors
                       hover:text-emerald-700
-                    `}
+                    "
                   >
                     Create an account
 
                     <ArrowRight
-                      className={`
+                      className="
                         size-4
                         transition-transform
                         duration-300
                         group-hover:translate-x-1
-                      `}
+                      "
                     />
                   </Link>
                 </div>
 
-               
+                {/* ================================================= */}
+                {/* TITLE */}
+                {/* ================================================= */}
 
                 <div>
                   <CardTitle
-                    className={`
+                    className="
                       text-3xl
                       font-bold
                       tracking-tight
                       text-[#123442]
                       sm:text-4xl
-                    `}
+                    "
                   >
                     Welcome Back
                   </CardTitle>
@@ -868,7 +887,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               </CardHeader>
 
               <CardContent className="px-7 pb-8 sm:px-10">
-             
+                {/* ================================================= */}
+                {/* FORM */}
+                {/* ================================================= */}
+
                 <form
                   method="POST"
                   action="#"
@@ -932,7 +954,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                             }
                             variant="ghost"
                             size="icon"
-                            className={`
+                            className="
                               mr-1
                               text-slate-400
                               transition-all
@@ -940,7 +962,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                               hover:bg-transparent
                               hover:text-emerald-600
                               hover:scale-110
-                            `}
+                            "
                           >
                             {showPassword ? (
                               <EyeOff
@@ -959,17 +981,20 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                     )}
                   </form.Field>
 
-             
+                  {/* ================================================= */}
+                  {/* REMEMBER + FORGOT */}
+                  {/* ================================================= */}
+
                   <div
-                    className={`
+                    className="
                       flex
                       items-center
                       justify-between
                       gap-4
-                    `}
+                    "
                   >
                     <label
-                      className={`
+                      className="
                         group
                         flex
                         cursor-pointer
@@ -977,11 +1002,11 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         gap-2
                         text-sm
                         text-slate-600
-                      `}
+                      "
                     >
                       <input
                         type="checkbox"
-                        className={`
+                        className="
                           size-5
                           rounded-md
                           border-slate-300
@@ -991,7 +1016,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                           duration-200
                           focus:ring-emerald-500
                           group-hover:scale-105
-                        `}
+                        "
                       />
 
                       <span>Remember me</span>
@@ -999,7 +1024,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 
                     <Link
                       href="/forgot-password"
-                      className={`
+                      className="
                         text-sm
                         font-medium
                         text-emerald-600
@@ -1007,22 +1032,25 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         hover:text-emerald-700
                         hover:underline
                         underline-offset-4
-                      `}
+                      "
                     >
                       Forgot password?
                     </Link>
                   </div>
 
-            
+                  {/* ================================================= */}
+                  {/* SERVER ERROR */}
+                  {/* ================================================= */}
+
                   {serverError && (
                     <Alert
                       variant="destructive"
-                      className={`
+                      className="
                         border-red-200
                         bg-red-50
                         text-red-600
                         animate-[errorShake_.4s_ease-out]
-                      `}
+                      "
                     >
                       <AlertDescription>
                         {serverError}
@@ -1030,7 +1058,9 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                     </Alert>
                   )}
 
-             
+                  {/* ================================================= */}
+                  {/* LOGIN BUTTON */}
+                  {/* ================================================= */}
 
                   <form.Subscribe
                     selector={(s) =>
@@ -1044,7 +1074,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         }
                         pendingLabel="Logging In..."
                         disabled={!canSubmit}
-                        className={`
+                        className="
                           group
                           relative
                           h-12
@@ -1068,12 +1098,12 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                           hover:shadow-emerald-600/30
                           active:translate-y-0
                           active:scale-[0.98]
-                        `}
+                        "
                       >
-                    
+                        {/* Shine */}
 
                         <span
-                          className={`
+                          className="
                             pointer-events-none
                             absolute
                             inset-y-0
@@ -1088,7 +1118,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                             transition-transform
                             duration-700
                             group-hover:translate-x-[450%]
-                          `}
+                          "
                         />
 
                         <span className="relative z-10">
@@ -1096,7 +1126,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         </span>
 
                         <ArrowRight
-                          className={`
+                          className="
                             relative
                             z-10
                             ml-2
@@ -1104,14 +1134,16 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                             transition-transform
                             duration-300
                             group-hover:translate-x-1
-                          `}
+                          "
                         />
                       </AppSubmitButton>
                     )}
                   </form.Subscribe>
                 </form>
 
-               
+                {/* ================================================= */}
+                {/* DIVIDER */}
+                {/* ================================================= */}
 
                 <div className="relative my-7">
                   <div className="absolute inset-0 flex items-center">
@@ -1125,11 +1157,13 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                   </div>
                 </div>
 
-              
+                {/* ================================================= */}
+                {/* GOOGLE */}
+                {/* ================================================= */}
 
                 <Button
                   variant="outline"
-                  className={`
+                  className="
                     group
                     h-12
                     w-full
@@ -1145,7 +1179,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                     hover:bg-emerald-50
                     hover:text-slate-900
                     hover:shadow-md
-                  `}
+                  "
                   onClick={() => {
                     const baseUrl =
                       process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -1153,16 +1187,16 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                     window.location.href = `${baseUrl}/auth/login/google`;
                   }}
                 >
-               
+                  {/* Google Icon */}
 
                   <svg
-                    className={`
+                    className="
                       mr-2
                       size-5
                       transition-transform
                       duration-300
                       group-hover:scale-110
-                    `}
+                    "
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -1190,10 +1224,12 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                 </Button>
               </CardContent>
 
-           
+              {/* ================================================= */}
+              {/* FOOTER */}
+              {/* ================================================= */}
 
               <CardFooter
-                className={`
+                className="
                   flex-col
                   justify-center
                   gap-3
@@ -1202,16 +1238,16 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                   bg-slate-50/70
                   px-7
                   py-5
-                `}
+                "
               >
                 <div
-                  className={`
+                  className="
                     flex
                     items-center
                     gap-2
                     text-xs
                     text-slate-500
-                  `}
+                  "
                 >
                   <ShieldCheck className="size-4 text-emerald-500" />
 
@@ -1225,7 +1261,9 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
         </div>
       </div>
 
-    
+      {/* ========================================================= */}
+      {/* GLOBAL ANIMATIONS */}
+      {/* ========================================================= */}
 
       <style jsx global>{`
         @keyframes imageFloat {
@@ -1387,4 +1425,3 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 };
 
 export default LoginForm;
-
