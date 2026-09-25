@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 
-import { getVendors } from "@/src/app/(commonLayout)/(publicLayout)/marketplace/vendors/_action";
+import { getVendors } from "@/src/app/(commonLayout)/marketplace/vendors/_action";
 
 import {
   Card,

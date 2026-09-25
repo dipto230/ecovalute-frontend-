@@ -3,7 +3,7 @@
 exports.__esModule = true;
 var link_1 = require("next/link");
 var react_query_1 = require("@tanstack/react-query");
-var _action_1 = require("@/src/app/(commonLayout)/marketplace/vendors/_action");
+var _action_1 = require("@/src/app/(commonLayout)/(publicLayout)/marketplace/vendors/_action");
 var card_1 = require("@/src/app/components/ui/card");
 var avatar_1 = require("@/src/app/components/ui/avatar");
 var badge_1 = require("@/src/app/components/ui/badge");
