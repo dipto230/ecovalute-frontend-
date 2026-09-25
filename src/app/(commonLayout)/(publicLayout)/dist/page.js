@@ -1,10 +1,8 @@
 "use strict";
 exports.__esModule = true;
-function Home() {
-    return (React.createElement("main", { className: "min-h-screen bg-white" },
-        React.createElement("section", { className: "flex min-h-screen items-center justify-center" },
-            React.createElement("div", { className: "text-center" },
-                React.createElement("h1", { className: "text-5xl font-bold text-slate-900" }, "EcoValuate"),
-                React.createElement("p", { className: "mt-4 text-lg text-slate-500" }, "Give E-Waste a Second Life")))));
+var HeroSection_1 = require("../../components/features/home/HeroSection");
+function HomePage() {
+    return (React.createElement("main", null,
+        React.createElement(HeroSection_1["default"], null)));
 }
-exports["default"] = Home;
+exports["default"] = HomePage;
