@@ -4,7 +4,6 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { setCookie } from "./cookieUtils";
 
 
-
 const getTokenSecondsRemaining =  (token: string): number => {
     if(!token) return 0;
     try {

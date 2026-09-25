@@ -1,3 +1,4 @@
+"use server";
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -36,15 +37,103 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var httpClient_1 = require("@/lib/axios/httpClient");
-var getVendors = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var vendors;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, httpClient_1.httpClient.get('/vendors')];
-            case 1:
-                vendors = _a.sent();
-                return [2 /*return*/, vendors];
-        }
+exports.getUserInfo = exports.getNewTokensWithRefreshToken = void 0;
+var tokenUtils_1 = require("@/lib/tokenUtils");
+var headers_1 = require("next/headers");
+var BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+if (!BASE_API_URL) {
+    throw new Error("NEXT_PUBLIC_API_BASE_URL is not defined");
+}
+function getNewTokensWithRefreshToken(refreshToken) {
+    return __awaiter(this, void 0, Promise, function () {
+        var res, data, accessToken, newRefreshToken, token, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 9, , 10]);
+                    return [4 /*yield*/, fetch(BASE_API_URL + "/auth/refresh-token", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Cookie: "refreshToken=" + refreshToken
+                            }
+                        })];
+                case 1:
+                    res = _a.sent();
+                    if (!res.ok) {
+                        return [2 /*return*/, false];
+                    }
+                    return [4 /*yield*/, res.json()];
+                case 2:
+                    data = (_a.sent()).data;
+                    accessToken = data.accessToken, newRefreshToken = data.refreshToken, token = data.token;
+                    if (!accessToken) return [3 /*break*/, 4];
+                    return [4 /*yield*/, tokenUtils_1.setTokenInCookies("accessToken", accessToken)];
+                case 3:
+                    _a.sent();
+                    _a.label = 4;
+                case 4:
+                    if (!newRefreshToken) return [3 /*break*/, 6];
+                    return [4 /*yield*/, tokenUtils_1.setTokenInCookies("refreshToken", newRefreshToken)];
+                case 5:
+                    _a.sent();
+                    _a.label = 6;
+                case 6:
+                    if (!token) return [3 /*break*/, 8];
+                    return [4 /*yield*/, tokenUtils_1.setTokenInCookies("better-auth.session_token", token, 24 * 60 * 60)];
+                case 7:
+                    _a.sent(); // 1 day in seconds
+                    _a.label = 8;
+                case 8: return [2 /*return*/, true];
+                case 9:
+                    error_1 = _a.sent();
+                    console.error("Error refreshing token:", error_1);
+                    return [2 /*return*/, false];
+                case 10: return [2 /*return*/];
+            }
+        });
     });
-}); };
+}
+exports.getNewTokensWithRefreshToken = getNewTokensWithRefreshToken;
+function getUserInfo() {
+    var _a;
+    return __awaiter(this, void 0, void 0, function () {
+        var cookieStore, accessToken, res, data, error_2;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 4, , 5]);
+                    return [4 /*yield*/, headers_1.cookies()];
+                case 1:
+                    cookieStore = _b.sent();
+                    accessToken = (_a = cookieStore.get("accessToken")) === null || _a === void 0 ? void 0 : _a.value;
+                    if (!accessToken) {
+                        return [2 /*return*/, null];
+                    }
+                    return [4 /*yield*/, fetch(BASE_API_URL + "/auth/me", {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Cookie: "accessToken=" + accessToken
+                            }
+                        })];
+                case 2:
+                    res = _b.sent();
+                    if (!res.ok) {
+                        console.error("Failed to fetch user info:", res.status, res.statusText);
+                        return [2 /*return*/, null];
+                    }
+                    return [4 /*yield*/, res.json()];
+                case 3:
+                    data = (_b.sent()).data;
+                    return [2 /*return*/, data];
+                case 4:
+                    error_2 = _b.sent();
+                    console.error("Error fetching user info:", error_2);
+                    return [2 /*return*/, null];
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getUserInfo = getUserInfo;
