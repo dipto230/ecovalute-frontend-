@@ -1,4 +1,3 @@
-import AIValuationSection from "../../components/features/home/AIValuationSection";
 import EWasteStorySection from "../../components/features/home/EWasteStorySection";
 import HeroSection from "../../components/features/home/HeroSection";
 
@@ -7,7 +6,7 @@ export default function HomePage() {
     <main>
           <HeroSection />
       <EWasteStorySection />
-      <AIValuationSection/>
+      <AI
     </main>
   );
 }
