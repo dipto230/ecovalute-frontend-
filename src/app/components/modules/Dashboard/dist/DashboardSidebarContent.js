@@ -7,6 +7,7 @@ var link_1 = require("next/link");
 var navigation_1 = require("next/navigation");
 var separator_1 = require("../../ui/separator");
 var scroll_area_1 = require("@/components/ui/scroll-area");
+var iconMapper_1 = require("@/lib/iconMapper");
 var DashboardSidebarContent = function (_a) {
     var dashboardHome = _a.dashboardHome, navItems = _a.navItems, userInfo = _a.userInfo;
     var pathname = navigation_1.usePathname();
@@ -26,7 +27,7 @@ var DashboardSidebarContent = function (_a) {
                 React.createElement("div", { className: "space-y-1" }, section.items.map(function (item, id) {
                     var isActive = pathname === item.href;
                     // Icon Mapper Function
-                    var Icon = getIconComponent(item.icon);
+                    var Icon = iconMapper_1.getIconComponent(item.icon);
                     return (React.createElement(link_1["default"], { href: item.href, key: id, className: utils_1.cn("group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200", isActive
                             ? "bg-emerald-50 text-emerald-700 shadow-sm shadow-emerald-100/70"
                             : "text-slate-500 hover:bg-slate-50 hover:text-slate-900") },

@@ -96,39 +96,44 @@ function getNewTokensWithRefreshToken(refreshToken) {
 }
 exports.getNewTokensWithRefreshToken = getNewTokensWithRefreshToken;
 function getUserInfo() {
-    var _a;
+    var _a, _b;
     return __awaiter(this, void 0, void 0, function () {
-        var cookieStore, accessToken, res, data, error_2;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var cookieStore, accessToken, sessionToken, res, data, error_2;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    _b.trys.push([0, 4, , 5]);
+                    _c.trys.push([0, 4, , 5]);
                     return [4 /*yield*/, headers_1.cookies()];
                 case 1:
-                    cookieStore = _b.sent();
+                    cookieStore = _c.sent();
                     accessToken = (_a = cookieStore.get("accessToken")) === null || _a === void 0 ? void 0 : _a.value;
-                    if (!accessToken) {
+                    sessionToken = (_b = cookieStore.get("better-auth.session_token")) === null || _b === void 0 ? void 0 : _b.value;
+                    if (!accessToken || !sessionToken) {
+                        console.error("Authentication cookies are missing.");
                         return [2 /*return*/, null];
                     }
                     return [4 /*yield*/, fetch(BASE_API_URL + "/auth/me", {
                             method: "GET",
                             headers: {
                                 "Content-Type": "application/json",
-                                Cookie: "accessToken=" + accessToken
+                                Cookie: [
+                                    "better-auth.session_token=" + sessionToken,
+                                    "accessToken=" + accessToken,
+                                ].join("; ")
                             }
                         })];
                 case 2:
-                    res = _b.sent();
+                    res = _c.sent();
                     if (!res.ok) {
                         console.error("Failed to fetch user info:", res.status, res.statusText);
                         return [2 /*return*/, null];
                     }
                     return [4 /*yield*/, res.json()];
                 case 3:
-                    data = (_b.sent()).data;
+                    data = (_c.sent()).data;
                     return [2 /*return*/, data];
                 case 4:
-                    error_2 = _b.sent();
+                    error_2 = _c.sent();
                     console.error("Error fetching user info:", error_2);
                     return [2 /*return*/, null];
                 case 5: return [2 /*return*/];
