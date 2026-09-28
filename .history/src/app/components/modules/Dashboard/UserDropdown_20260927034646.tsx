@@ -1,8 +1,8 @@
-
-"use client";
-
+```tsx
 import { UserInfo } from "@/src/types/user.types";
+
 import { Key, LogOut, User } from "lucide-react";
+
 import Link from "next/link";
 
 import { Button } from "../../ui/button";
@@ -10,7 +10,6 @@ import { Button } from "../../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -38,26 +37,27 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
         </span>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuGroup>
-          <DropdownMenuLabel>
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium">
-                {userInfo.name}
-              </p>
+      <DropdownMenuContent
+        align="end"
+        className="w-56"
+      >
+        <DropdownMenuLabel>
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium">
+              {userInfo.name}
+            </p>
 
-              <p className="text-xs text-muted-foreground">
-                {userInfo.email}
-              </p>
+            <p className="text-xs text-muted-foreground">
+              {userInfo.email}
+            </p>
 
-              <p className="text-xs text-primary capitalize">
-                {userInfo.role
-                  .toLowerCase()
-                  .replace("_", " ")}
-              </p>
-            </div>
-          </DropdownMenuLabel>
-        </DropdownMenuGroup>
+            <p className="text-xs text-primary capitalize">
+              {userInfo.role
+                .toLowerCase()
+                .replace("_", " ")}
+            </p>
+          </div>
+        </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
 
@@ -82,10 +82,8 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem
+          onClick={() => {}}
           className="cursor-pointer text-red-600"
-          onClick={() => {
-            // TODO: Implement logout action
-          }}
         >
           <LogOut className="mr-2 h-4 w-4" />
           <span>Logout</span>
@@ -96,3 +94,4 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
 };
 
 export default UserDropdown;
+
