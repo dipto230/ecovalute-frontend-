@@ -27,13 +27,15 @@ export interface RevenueChartData {
   orders: number;
 }
 
-
+// AI Product Detection
 export interface AIDetectionChartData {
   label: string;
   count: number;
 }
 
-
+// ---------------------------------------------
+// Admin Dashboard Summary
+// ---------------------------------------------
 
 export interface IAdminDashboardData {
   totalProducts: number;
@@ -42,13 +44,13 @@ export interface IAdminDashboardData {
   totalUsers: number;
   totalRevenue: number;
 
- 
+  // Optional additional dashboard metrics
   pendingOrders?: number;
   pendingVendors?: number;
   totalCategories?: number;
   totalAIDetections?: number;
 
-
+  // Analytics Charts
   revenueData: RevenueChartData[];
   orderStatusData: PieChartData[];
   categoryData: CategoryChartData[];

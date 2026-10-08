@@ -42,7 +42,7 @@ export interface IAdminDashboardData {
   totalUsers: number;
   totalRevenue: number;
 
- 
+  // Optional additional dashboard metrics
   pendingOrders?: number;
   pendingVendors?: number;
   totalCategories?: number;

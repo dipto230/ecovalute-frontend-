@@ -12,7 +12,7 @@ const AdminDashboardPage = async() => {
 
   })
   const dashboardData = queryClient.getQueryData(["admin-dashboard-data"]) as ApiResponse<IAdminDashboardData>;
-  console.log(dashboardData.data, "Dashboard Data from Server Action");
+  console.log(dashboardData, "Dashboard Data from Server Action");
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <AdminDashboardContent/>
