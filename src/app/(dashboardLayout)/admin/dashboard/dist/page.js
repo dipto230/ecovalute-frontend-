@@ -47,7 +47,9 @@ var AdminDashboardPage = function () { return __awaiter(void 0, void 0, void 0, 
                 queryClient = new react_query_1.QueryClient();
                 return [4 /*yield*/, queryClient.prefetchQuery({
                         queryKey: ["admin-dashboard-data"],
-                        queryFn: dashboard_service_1.getDashboardData
+                        queryFn: dashboard_service_1.getDashboardData,
+                        staleTime: 30 * 1000,
+                        gcTime: 5 * 60 * 1000
                     })];
             case 1:
                 _a.sent();

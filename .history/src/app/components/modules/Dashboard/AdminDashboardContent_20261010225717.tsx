@@ -4,7 +4,6 @@ import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getDashboardData } from "@/src/services/dashboard.service"
 import StatsCard from "../../shared/StatsCard"
-import AdminAnalyticsCharts from "../../shared/AdminAnalyticsCharts"
 import { ApiResponse } from "@/src/types/api.types"
 import { IAdminDashboardData } from "@/src/types/dashboard.types"
 
@@ -34,8 +33,8 @@ const AdminDashboardContent = () => {
 
   if (isError || !adminDashboardData) {
     return (
-      <div className="rounded-xl border p-5 text-sm text-red-600">
-        Failed to load dashboard statistics.
+      <div className="rounded-xl border border-red-200 bg-red-50 p-5 text-sm text-red-600">
+        Failed to load dashboard statistics. Please try again.
       </div>
     )
   }
@@ -43,13 +42,12 @@ const AdminDashboardContent = () => {
   const response =
     adminDashboardData as ApiResponse<IAdminDashboardData>
 
-  const dashboard = response.data
-  const data = dashboard.overview
-  const vendors = dashboard.vendors
-  const products = dashboard.products
-  const orders = dashboard.orders
-  const payments = dashboard.payments
-  const ai = dashboard.ai
+  const data = response.data.overview
+  const vendors = response.data.vendors
+  const products = response.data.products
+  const orders = response.data.orders
+  const payments = response.data.payments
+  const ai = response.data.ai
 
   const stats = [
     {
@@ -98,54 +96,46 @@ const AdminDashboardContent = () => {
       title: "AI Detections",
       value: ai.totalDetections,
       iconName: "scan-search",
-      description: "Total AI detections",
+      description: "Total AI detections performed",
+    },
+    {
+      title: "Price Estimations",
+      value: ai.totalPriceEstimations,
+      iconName: "chart-no-axes-combined",
+      description: "AI-powered price estimations",
+    },
+    {
+      title: "Market Comparisons",
+      value: ai.totalMarketComparisons,
+      iconName: "chart-bar",
+      description: "Total market comparisons",
+    },
+    {
+      title: "Pending Products",
+      value: products.pending,
+      iconName: "clock",
+      description: "Products awaiting approval",
+    },
+    {
+      title: "Confirmed Orders",
+      value: orders.confirmed,
+      iconName: "check-circle",
+      description: "Orders confirmed successfully",
     },
   ]
 
-  // Monthly revenue and order chart
-  const revenueData = dashboard.charts.monthly.map((item) => ({
-    month: item.month,
-    revenue: item.revenue,
-    orders: item.orders,
-  }))
-
-  // Order status chart
-  const orderStatusData = [
-    { status: "Pending", count: orders.pending },
-    { status: "Confirmed", count: orders.confirmed },
-    { status: "Processing", count: orders.processing },
-    { status: "Shipped", count: orders.shipped },
-    { status: "Delivered", count: orders.delivered },
-    { status: "Completed", count: orders.completed },
-    { status: "Cancelled", count: orders.cancelled },
-  ]
-
-  // Category-wise data is not provided by the current API response.
-  const categoryData: { category: string; count: number }[] = []
-
-  // Vendor status chart
-  const vendorStatusData = [
-    { status: "Active", count: vendors.active },
-    { status: "Pending", count: vendors.pending },
-    { status: "Inactive", count: vendors.inactive },
-    { status: "Suspended", count: vendors.suspended },
-  ]
-
-  // The API returns aggregate AI statistics, not label-wise detections.
-  const aiDetectionData: { label: string; count: number }[] = []
-
   return (
-    <section className="space-y-8">
-      <div>
+    <section className="space-y-6">
+      <div className="flex flex-col gap-1">
         <h2 className="text-2xl font-bold tracking-tight">
           Dashboard Overview
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Monitor users, vendors, marketplace activity and AI insights.
+
+        <p className="text-sm text-muted-foreground">
+          Monitor your users, vendors, products, orders, payments, and AI insights.
         </p>
       </div>
 
-      {/* Statistics Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {stats.map((stat) => (
           <StatsCard
@@ -157,15 +147,6 @@ const AdminDashboardContent = () => {
           />
         ))}
       </div>
-
-      {/* Analytics Charts */}
-      <AdminAnalyticsCharts
-        revenueData={revenueData}
-        orderStatusData={orderStatusData}
-        categoryData={categoryData}
-        vendorStatusData={vendorStatusData}
-        aiDetectionData={aiDetectionData}
-      />
     </section>
   )
 }
