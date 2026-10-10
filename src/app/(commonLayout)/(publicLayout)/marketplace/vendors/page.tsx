@@ -1,8 +1,9 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
 import VendorList from "@/src/app/components/modules/vendors/VendorList";
+import { getVendors } from "@/src/services/vendor.service";
 
-import { getVendors } from "./_action";
+
 
 const MarketPlaceVendorsPage = async () => {
   const queryClient = new QueryClient();

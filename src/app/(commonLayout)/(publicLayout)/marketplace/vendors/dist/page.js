@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var react_query_1 = require("@tanstack/react-query");
 var VendorList_1 = require("@/src/app/components/modules/vendors/VendorList");
-var _action_1 = require("./_action");
+var vendor_service_1 = require("@/src/services/vendor.service");
 var MarketPlaceVendorsPage = function () { return __awaiter(void 0, void 0, void 0, function () {
     var queryClient;
     return __generator(this, function (_a) {
@@ -47,7 +47,7 @@ var MarketPlaceVendorsPage = function () { return __awaiter(void 0, void 0, void
                 queryClient = new react_query_1.QueryClient();
                 return [4 /*yield*/, queryClient.prefetchQuery({
                         queryKey: ["vendors"],
-                        queryFn: _action_1.getVendors
+                        queryFn: vendor_service_1.getVendors
                     })];
             case 1:
                 _a.sent();
