@@ -43,12 +43,12 @@ var RootDashboardLayout = function (_a) {
     var children = _a.children;
     return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_b) {
-            return [2 /*return*/, (react_1["default"].createElement("div", { className: 'flex h-screen overflow-hidden' },
+            return [2 /*return*/, (react_1["default"].createElement("div", { className: "flex h-dvh min-h-0 overflow-hidden" },
                     react_1["default"].createElement(DashboardSidebar_1["default"], null),
-                    react_1["default"].createElement("div", { className: 'flex flex-1 flex-col overflow-hidden' },
+                    react_1["default"].createElement("div", { className: "flex min-w-0 flex-1 flex-col overflow-hidden" },
                         react_1["default"].createElement(DashboardNavbar_1["default"], null),
-                        react_1["default"].createElement("main", { className: 'flex-1 overflow-y-auto bg-muted/10 p-4 md:p-6' },
-                            react_1["default"].createElement("div", null, children)))))];
+                        react_1["default"].createElement("main", { className: "min-h-0 flex-1 overflow-y-auto bg-muted/10 p-4 md:p-6" },
+                            react_1["default"].createElement("div", { className: "w-full min-w-0" }, children)))))];
         });
     });
 };
