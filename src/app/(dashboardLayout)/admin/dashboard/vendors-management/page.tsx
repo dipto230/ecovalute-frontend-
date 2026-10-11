@@ -4,7 +4,8 @@ import { getVendors } from '@/src/services/vendor.service'
 import React from 'react'
 import VendorsTable from "@/src/app/components/modules/Admin/VendorsManagements/VendorsTable";
 
-const VendorsManagementPage = async() => {
+const VendorsManagementPage = async () => {
+
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery({
     queryKey: ["vendors"],
