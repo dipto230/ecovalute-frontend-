@@ -1,5 +1,6 @@
 "use server";
 
+import { httpClient } from "@/lib/axios/httpClient";
 import { setTokenInCookies } from "@/lib/tokenUtils";
 import { cookies } from "next/headers";
 
@@ -87,3 +88,24 @@ export async function getUserInfo() {
         return null;
     }
 }
+
+export interface IChangePasswordPayload {
+  currentPassword: string;
+  newPassword: string;
+}
+
+export const changePassword = async (
+  payload: IChangePasswordPayload
+) => {
+  try {
+    const response = await httpClient.post(
+      "/auth/change-password",
+      payload
+    );
+
+    return response;
+  } catch (error) {
+    console.error("Error changing password:", error);
+    throw error;
+  }
+};

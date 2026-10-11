@@ -1,4 +1,4 @@
-
+ 
 export type VendorStatus =
   | "PENDING"
   | "ACTIVE"

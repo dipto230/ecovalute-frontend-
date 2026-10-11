@@ -13,3 +13,7 @@ export interface ILoginResponse {
         emailVerified : boolean;
     }
 }
+export interface IChangePasswordPayload {
+  currentPassword: string;
+  newPassword: string;
+}
