@@ -144,20 +144,7 @@ function getUserInfo() {
 }
 exports.getUserInfo = getUserInfo;
 exports.changePassword = function (payload) { return __awaiter(void 0, void 0, void 0, function () {
-    var response, error_3;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, httpClient_1.httpClient.post("/auth/change-password", payload)];
-            case 1:
-                response = _a.sent();
-                return [2 /*return*/, response];
-            case 2:
-                error_3 = _a.sent();
-                console.error("Error changing password:", error_3);
-                throw error_3;
-            case 3: return [2 /*return*/];
-        }
+        return [2 /*return*/, httpClient_1.httpClient.post("/auth/change-password", payload)];
     });
 }); };

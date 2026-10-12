@@ -89,6 +89,7 @@ export async function getUserInfo() {
     }
 }
 
+
 export interface IChangePasswordPayload {
   currentPassword: string;
   newPassword: string;
@@ -97,15 +98,8 @@ export interface IChangePasswordPayload {
 export const changePassword = async (
   payload: IChangePasswordPayload
 ) => {
-  try {
-    const response = await httpClient.post(
-      "/auth/change-password",
-      payload
-    );
-
-    return response;
-  } catch (error) {
-    console.error("Error changing password:", error);
-    throw error;
-  }
+  return httpClient.post<unknown>(
+    "/auth/change-password",
+    payload
+  );
 };
