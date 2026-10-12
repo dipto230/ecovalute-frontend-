@@ -34,6 +34,46 @@ interface IEstimateResponse {
   data: IImagePriceEstimate;
 }
 
+
+export interface IEWasteRecoveryMaterial {
+  id: string;
+  materialName: string;
+  estimatedWeightMinGrams: number;
+  estimatedWeightMaxGrams: number;
+  recoveryRate: number;
+  recoveredWeightMinGrams: number;
+  recoveredWeightMaxGrams: number;
+  pricePerKg: string | number;
+  estimatedValueMin: string | number;
+  estimatedValueMax: string | number;
+  confidenceScore: number;
+  notes?: string | null;
+}
+
+export interface IEWasteRecoveryReport {
+  id: string;
+  imagePriceEstimateId: string;
+  deviceCategory: string;
+  deviceBrand: string | null;
+  deviceModel: string | null;
+  estimatedWeightMinGrams: number;
+  estimatedWeightMaxGrams: number;
+  estimatedGrossValueMin: string | number;
+  estimatedGrossValueMax: string | number;
+  processingCostMin: string | number;
+  processingCostMax: string | number;
+  estimatedNetValueMin: string | number;
+  estimatedNetValueMax: string | number;
+  currency: string;
+  recommendation: string;
+  recommendationReason: string;
+  assumptions: string;
+  confidenceScore: number;
+  aiModel: string;
+  materials: IEWasteRecoveryMaterial[];
+}
+
+
 export const estimateImagePrice = async (
   image: File
 ): Promise<IImagePriceEstimate> => {
