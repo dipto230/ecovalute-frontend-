@@ -18,6 +18,12 @@ var navItems = [
         badge: "AI"
     },
     {
+        label: "Price Estimation",
+        href: "/price-estimation",
+        icon: lucide_react_1.Sparkles,
+        badge: "AI"
+    },
+    {
         label: "Marketplace",
         href: "/marketplace",
         icon: lucide_react_1.ShoppingBag,

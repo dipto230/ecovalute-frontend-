@@ -31,6 +31,12 @@ const navItems = [
     badge: "AI",
   },
   {
+  label: "Price Estimation",
+  href: "/price-estimation",
+  icon: Sparkles,
+  badge: "AI",
+},
+  {
     label: "Marketplace",
     href: "/marketplace",
     icon: ShoppingBag,
