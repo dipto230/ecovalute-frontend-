@@ -43,7 +43,7 @@ const navItems = [
   },
   {
     label: "Contact",
-    href: "#contact",
+    href: "/contact",
     icon: Sparkles,
   },
 ];

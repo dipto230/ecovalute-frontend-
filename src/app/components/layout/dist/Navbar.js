@@ -31,7 +31,7 @@ var navItems = [
     },
     {
         label: "Contact",
-        href: "#contact",
+        href: "/contact",
         icon: lucide_react_1.Sparkles
     },
 ];
