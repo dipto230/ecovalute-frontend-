@@ -45,7 +45,7 @@ var tokenUtils_1 = require("@/lib/tokenUtils");
 var auth_validation_1 = require("@/src/zod/auth.validation");
 var navigation_1 = require("next/navigation");
 exports.loginAction = function (payload, redirectPath) { return __awaiter(void 0, void 0, Promise, function () {
-    var parsedPayload, firstError, response, _a, accessToken, refreshToken, token, user, role, emailVerified, needPasswordChange, email, targetPath, error_1;
+    var parsedPayload, firstError, response, _a, accessToken, refreshToken, token, user, role, emailVerified, needPasswordChange, email, userRole, targetPath, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -82,7 +82,14 @@ exports.loginAction = function (payload, redirectPath) { return __awaiter(void 0
                     navigation_1.redirect("/reset-password?email=" + email);
                 }
                 else {
-                    targetPath = redirectPath && authUtils_1.isValidRedirectForRole(redirectPath, role) ? redirectPath : authUtils_1.getDefaultDashboardRoute(role);
+                    userRole = role;
+                    targetPath = userRole === "CUSTOMER"
+                        ? "/"
+                        : redirectPath &&
+                            authUtils_1.isValidRedirectForRole(redirectPath, userRole)
+                            ? redirectPath
+                            : authUtils_1.getDefaultDashboardRoute(userRole);
+                    navigation_1.redirect(targetPath);
                     navigation_1.redirect(targetPath);
                 }
                 return [3 /*break*/, 7];

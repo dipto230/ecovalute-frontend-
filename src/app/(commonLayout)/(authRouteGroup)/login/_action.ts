@@ -40,7 +40,19 @@ export const loginAction = async (payload : ILoginPayload, redirectPath ?: strin
             redirect(`/reset-password?email=${email}`);
         }else{
             // redirect(redirectPath || "/dashboard");
-            const targetPath = redirectPath && isValidRedirectForRole(redirectPath, role as UserRole) ? redirectPath : getDefaultDashboardRoute(role as UserRole);
+           
+const userRole = role as UserRole;
+
+const targetPath =
+  userRole === "CUSTOMER"
+    ? "/"
+    : redirectPath &&
+        isValidRedirectForRole(redirectPath, userRole)
+      ? redirectPath
+      : getDefaultDashboardRoute(userRole);
+
+redirect(targetPath);
+
 
             
             redirect(targetPath);

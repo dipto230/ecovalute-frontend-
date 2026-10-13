@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.cancelOrder = exports.updateOrderStatus = exports.getOrderById = exports.getOrders = void 0;
+exports.cancelOrder = exports.updateOrderStatus = exports.getOrderById = exports.getMyOrders = exports.getOrders = void 0;
 var httpClient_1 = require("@/lib/axios/httpClient");
 exports.getOrders = function (params) { return __awaiter(void 0, void 0, void 0, function () {
     var error_1;
@@ -57,8 +57,24 @@ exports.getOrders = function (params) { return __awaiter(void 0, void 0, void 0,
         }
     });
 }); };
-exports.getOrderById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+exports.getMyOrders = function (params) { return __awaiter(void 0, void 0, void 0, function () {
     var error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, httpClient_1.httpClient.get("/orders/my-orders", { params: params })];
+            case 1: return [2 /*return*/, _a.sent()];
+            case 2:
+                error_2 = _a.sent();
+                console.error("Error fetching customer orders:", error_2);
+                throw error_2;
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getOrderById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -66,15 +82,15 @@ exports.getOrderById = function (id) { return __awaiter(void 0, void 0, void 0, 
                 return [4 /*yield*/, httpClient_1.httpClient.get("/orders/" + id)];
             case 1: return [2 /*return*/, _a.sent()];
             case 2:
-                error_2 = _a.sent();
-                console.error("Error fetching order details:", error_2);
-                throw error_2;
+                error_3 = _a.sent();
+                console.error("Error fetching order details:", error_3);
+                throw error_3;
             case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.updateOrderStatus = function (id, status) { return __awaiter(void 0, void 0, void 0, function () {
-    var error_3;
+    var error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -84,15 +100,15 @@ exports.updateOrderStatus = function (id, status) { return __awaiter(void 0, voi
                     })];
             case 1: return [2 /*return*/, _a.sent()];
             case 2:
-                error_3 = _a.sent();
-                console.error("Error updating order status:", error_3);
-                throw error_3;
+                error_4 = _a.sent();
+                console.error("Error updating order status:", error_4);
+                throw error_4;
             case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.cancelOrder = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var error_4;
+    var error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -100,9 +116,9 @@ exports.cancelOrder = function (id) { return __awaiter(void 0, void 0, void 0, f
                 return [4 /*yield*/, httpClient_1.httpClient.patch("/orders/" + id + "/cancel", {})];
             case 1: return [2 /*return*/, _a.sent()];
             case 2:
-                error_4 = _a.sent();
-                console.error("Error cancelling order:", error_4);
-                throw error_4;
+                error_5 = _a.sent();
+                console.error("Error cancelling order:", error_5);
+                throw error_5;
             case 3: return [2 /*return*/];
         }
     });

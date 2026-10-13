@@ -17,6 +17,15 @@ export const getOrders = async (params?: IOrderQuery) => {
   }
 };
 
+export const getMyOrders = async (params?: IOrderQuery) => {
+  try {
+    return await httpClient.get("/orders/my-orders", { params });
+  } catch (error) {
+    console.error("Error fetching customer orders:", error);
+    throw error;
+  }
+};
+
 export const getOrderById = async (id: string) => {
   try {
     return await httpClient.get(`/orders/${id}`);
