@@ -2,6 +2,7 @@ import AIValuationSection from "../../components/features/home/AIValuationSectio
 import CategorySection from "../../components/features/home/CategorySection";
 import EWasteStorySection from "../../components/features/home/EWasteStorySection";
 import HeroSection from "../../components/features/home/HeroSection";
+import LiveMarketSection from "../../components/features/home/LiveMarketSection";
 
 export default function HomePage() {
   return (
@@ -9,7 +10,8 @@ export default function HomePage() {
           <HeroSection />
       <EWasteStorySection />
       <AIValuationSection />
-      <CategorySection/>
+      <CategorySection />
+      <LiveMarketSection/>
     </main>
   );
 }

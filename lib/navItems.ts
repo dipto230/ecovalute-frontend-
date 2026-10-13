@@ -164,6 +164,11 @@ export const customerNavItems: NavSection[] = [
                 href: "/dashboard/reviews",
                 icon: "Star",
             },
+            {
+  title: "My Logs",
+  href: "/dashboard/my-logs",
+  icon: "History",
+},
         ],
     },
 ];
