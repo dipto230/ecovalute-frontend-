@@ -1,9 +1,30 @@
-import React from 'react'
 
-const ProductsPage = () => {
+import { getProducts } from "@/src/services/product.service";
+
+import type { IProduct } from "@/src/types/product.types";
+import CustomerProductsClient from "./CustomerProductsClient";
+
+export default async function CustomerProductsPage() {
+  let products: IProduct[] = [];
+  // let errorMessage = "";
+
+  
+  try {
+    const response = await getProducts();
+
+    products = Array.isArray(response.data)
+      ? response.data
+      : [];
+  } catch (error) {
+    console.error("Failed to load customer products:", error);
+    // errorMessage = "Unable to load products. Please try again later.";
+  }
+
+  // Return JSX outside try/catch
   return (
-    <div>ProductsPage</div>
-  )
+    <CustomerProductsClient
+      products={products}
+      // errorMessage={errorMessage}
+    />
+  );
 }
-
-export default ProductsPage
