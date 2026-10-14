@@ -38,6 +38,7 @@ export interface IProduct {
   category?: IProductCategory | null;
   createdAt?: string | Date | null;
   updatedAt?: string | Date | null;
+  productImages?: IProductImage[];
 }
 
 export interface IUpdateProductPayload {
@@ -51,4 +52,10 @@ export interface IUpdateProductPayload {
   status?: ProductStatus;
   vendorId?: string;
   categoryId?: string;
+}
+
+export interface IProductImage {
+  id: string;
+  imageUrl: string;
+  productId: string;
 }

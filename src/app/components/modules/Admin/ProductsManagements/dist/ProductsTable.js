@@ -85,7 +85,7 @@ function ProductsTable() {
     var queryClient = react_query_1.useQueryClient();
     var _c = react_query_1.useQuery({
         queryKey: ["products"],
-        queryFn: product_service_1.getProducts
+        queryFn: function () { return product_service_1.getProducts(); }
     }), response = _c.data, isLoading = _c.isLoading, isError = _c.isError, isFetching = _c.isFetching, refetch = _c.refetch;
     var products = react_1.useMemo(function () {
         var _a;

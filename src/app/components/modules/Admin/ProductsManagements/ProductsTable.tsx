@@ -85,16 +85,16 @@ export default function ProductsTable() {
   const [statusFilter, setStatusFilter] = useState("ALL");
   const queryClient = useQueryClient();
 
-  const {
-    data: response,
-    isLoading,
-    isError,
-    isFetching,
-    refetch,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
-  });
+const {
+  data: response,
+  isLoading,
+  isError,
+  isFetching,
+  refetch,
+} = useQuery({
+  queryKey: ["products"],
+  queryFn: () => getProducts(),
+});
 
 
  const products = useMemo<IProduct[]>(() => {

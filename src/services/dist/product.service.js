@@ -37,26 +37,52 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.deleteProduct = exports.updateProduct = exports.getProducts = void 0;
+exports.deleteProduct = exports.updateProduct = exports.getProductById = exports.getProducts = void 0;
 var httpClient_1 = require("@/lib/axios/httpClient");
-exports.getProducts = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var error_1;
+exports.getProducts = function (query) {
+    if (query === void 0) { query = ""; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var queryString, response, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    queryString = typeof query === "string"
+                        ? query.replace(/^\?/, "")
+                        : "";
+                    return [4 /*yield*/, httpClient_1.httpClient.get("/products" + (queryString ? "?" + queryString : ""))];
+                case 1:
+                    response = _a.sent();
+                    console.log("[getProducts] Response:", response);
+                    console.log("[getProducts] Data:", response.data);
+                    return [2 /*return*/, response];
+                case 2:
+                    error_1 = _a.sent();
+                    console.error("Error fetching products:", error_1);
+                    throw error_1;
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+};
+exports.getProductById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, httpClient_1.httpClient.get("/products")];
+                return [4 /*yield*/, httpClient_1.httpClient.get("/products/" + id + "?include=productImages")];
             case 1: return [2 /*return*/, _a.sent()];
             case 2:
-                error_1 = _a.sent();
-                console.error("Error fetching products:", error_1);
-                throw error_1;
+                error_2 = _a.sent();
+                console.error("Error fetching product:", error_2);
+                throw error_2;
             case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.updateProduct = function (id, payload) { return __awaiter(void 0, void 0, void 0, function () {
-    var error_2;
+    var error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -64,15 +90,15 @@ exports.updateProduct = function (id, payload) { return __awaiter(void 0, void 0
                 return [4 /*yield*/, httpClient_1.httpClient.patch("/products/" + id, payload)];
             case 1: return [2 /*return*/, _a.sent()];
             case 2:
-                error_2 = _a.sent();
-                console.error("Error updating product:", error_2);
-                throw error_2;
+                error_3 = _a.sent();
+                console.error("Error updating product:", error_3);
+                throw error_3;
             case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.deleteProduct = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var error_3;
+    var error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -80,9 +106,9 @@ exports.deleteProduct = function (id) { return __awaiter(void 0, void 0, void 0,
                 return [4 /*yield*/, httpClient_1.httpClient["delete"]("/products/" + id)];
             case 1: return [2 /*return*/, _a.sent()];
             case 2:
-                error_3 = _a.sent();
-                console.error("Error deleting product:", error_3);
-                throw error_3;
+                error_4 = _a.sent();
+                console.error("Error deleting product:", error_4);
+                throw error_4;
             case 3: return [2 /*return*/];
         }
     });

@@ -13,7 +13,7 @@ const ProductsManagementPage = async () => {
 
   await queryClient.prefetchQuery({
     queryKey: ["products"],
-    queryFn: getProducts,
+    queryFn: () => getProducts(),
     staleTime: 1000 * 60 * 60,
   });
 
