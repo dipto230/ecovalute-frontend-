@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.cancelOrder = exports.updateOrderStatus = exports.getOrderById = exports.getMyOrders = exports.getOrders = void 0;
+exports.buyNowOrder = exports.cancelOrder = exports.updateOrderStatus = exports.getOrderById = exports.getMyOrders = exports.getOrders = void 0;
 var httpClient_1 = require("@/lib/axios/httpClient");
 exports.getOrders = function (params) { return __awaiter(void 0, void 0, void 0, function () {
     var error_1;
@@ -119,6 +119,24 @@ exports.cancelOrder = function (id) { return __awaiter(void 0, void 0, void 0, f
                 error_5 = _a.sent();
                 console.error("Error cancelling order:", error_5);
                 throw error_5;
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.buyNowOrder = function (productId) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_6;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, httpClient_1.httpClient.post("/orders/buy-now", {
+                        productId: productId
+                    })];
+            case 1: return [2 /*return*/, _a.sent()];
+            case 2:
+                error_6 = _a.sent();
+                console.error("Error creating Buy Now order:", error_6);
+                throw error_6;
             case 3: return [2 /*return*/];
         }
     });

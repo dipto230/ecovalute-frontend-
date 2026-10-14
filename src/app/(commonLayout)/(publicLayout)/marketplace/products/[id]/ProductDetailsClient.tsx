@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -11,14 +10,20 @@ import {
   ChevronRight,
   Clock3,
   Leaf,
+  LoaderCircle,
   Mail,
   Package,
   ShieldCheck,
   ShoppingBag,
   Truck,
+  X,
+  CreditCard,
+  MessageSquare,
 } from "lucide-react";
 
 import type { IProduct } from "@/src/types/product.types";
+import { buyNowOrder } from "@/src/services/order.service";
+import { createCheckoutSession } from "@/src/services/payment.service";
 
 interface ProductDetailsClientProps {
   product: IProduct;
@@ -28,9 +33,7 @@ interface ProductDetailsClientProps {
 const formatPrice = (price: number | string) => {
   const amount = Number(price);
 
-  if (!Number.isFinite(amount)) {
-    return "Price unavailable";
-  }
+  if (!Number.isFinite(amount)) return "Price unavailable";
 
   return `₹${amount.toLocaleString("en-IN", {
     maximumFractionDigits: 2,
@@ -56,9 +59,7 @@ const formatDate = (date?: string | Date | null) => {
 
   const parsed = new Date(date);
 
-  if (Number.isNaN(parsed.getTime())) {
-    return "Recently listed";
-  }
+  if (Number.isNaN(parsed.getTime())) return "Recently listed";
 
   return parsed.toLocaleDateString("en-IN", {
     day: "numeric",
@@ -98,6 +99,24 @@ function ProductImage({
   );
 }
 
+function getErrorMessage(error: unknown): string {
+  if (typeof error === "object" && error !== null && "response" in error) {
+    const response = (
+      error as {
+        response?: {
+          data?: { message?: string };
+        };
+      }
+    ).response;
+
+    if (response?.data?.message) return response.data.message;
+  }
+
+  if (error instanceof Error) return error.message;
+
+  return "Something went wrong. Please try again.";
+}
+
 export default function ProductDetailsClient({
   product,
   relatedProducts,
@@ -107,6 +126,12 @@ export default function ProductDetailsClient({
     .map((image) => image.imageUrl);
 
   const [activeImage, setActiveImage] = useState(0);
+  const [isBuying, setIsBuying] = useState(false);
+  const [buyError, setBuyError] = useState("");
+  const [isOfferOpen, setIsOfferOpen] = useState(false);
+  const [offerPrice, setOfferPrice] = useState("");
+  const [offerMessage, setOfferMessage] = useState("");
+  const [offerError, setOfferError] = useState("");
 
   const currentImage = images[activeImage];
 
@@ -116,23 +141,94 @@ export default function ProductDetailsClient({
     "Marketplace seller";
 
   const isAvailable =
-    product.status === "APPROVED" &&
+    ["APPROVED", "AVAILABLE"].includes(product.status) &&
     Number(product.quantity) > 0;
 
   const canContactSeller = Boolean(product.vendor?.email);
+
+  const listedPrice = Number(product.estimatedPrice);
 
   const moveImage = (direction: number) => {
     if (images.length < 2) return;
 
     setActiveImage(
-      (current) =>
-        (current + direction + images.length) % images.length
+      (current) => (current + direction + images.length) % images.length
     );
+  };
+
+  const handleBuyNow = async () => {
+    if (isBuying || !isAvailable) return;
+
+    setIsBuying(true);
+    setBuyError("");
+
+    try {
+      // Step 1: Create an order at the listed price.
+      const orderResponse = await buyNowOrder(product.id);
+      const orderId = orderResponse.data?.id;
+
+      if (!orderId) {
+        throw new Error("Order was created, but its ID was not returned.");
+      }
+
+      // Step 2: Create a Stripe Checkout session for that order.
+      const checkout = await createCheckoutSession(orderId);
+
+      if (!checkout.checkoutUrl) {
+        throw new Error("Stripe did not return a checkout URL.");
+      }
+
+      // Step 3: Redirect to Stripe Checkout.
+      window.location.assign(checkout.checkoutUrl);
+    } catch (error) {
+      setBuyError(getErrorMessage(error));
+      setIsBuying(false);
+    }
+  };
+
+  const handleOfferEmail = () => {
+    setOfferError("");
+
+    const amount = Number(offerPrice);
+
+    if (!Number.isFinite(amount) || amount <= 0) {
+      setOfferError("Enter a valid offer amount.");
+      return;
+    }
+
+    if (!canContactSeller || !product.vendor?.email) {
+      setOfferError("Seller email is not available.");
+      return;
+    }
+
+    const subject = encodeURIComponent(
+      `Offer for ${product.title} - EcoValuate`
+    );
+
+    const body = encodeURIComponent(
+      [
+        `Hello ${vendorName},`,
+        "",
+        `I am interested in your product: ${product.title}.`,
+        `Listed price: ${formatPrice(product.estimatedPrice)}`,
+        `My proposed offer: ${formatPrice(amount)}`,
+        offerMessage.trim() ? `Message: ${offerMessage.trim()}` : "",
+        "",
+        "Please let me know if you would consider this offer.",
+        "",
+        "Regards",
+        "EcoValuate Marketplace Customer",
+      ]
+        .filter(Boolean)
+        .join("\n")
+    );
+
+    window.location.href = `mailto:${product.vendor.email}?subject=${subject}&body=${body}`;
+    setIsOfferOpen(false);
   };
 
   return (
     <main className="min-h-screen bg-white text-neutral-950">
-      {/* Breadcrumb */}
       <div className="border-b border-neutral-100">
         <div className="mx-auto max-w-7xl px-5 py-5 sm:px-8">
           <Link
@@ -148,10 +244,7 @@ export default function ProductDetailsClient({
               Home
             </Link>
             <span>/</span>
-            <Link
-              href="/marketplace"
-              className="hover:text-neutral-800"
-            >
+            <Link href="/marketplace" className="hover:text-neutral-800">
               Marketplace
             </Link>
             <span>/</span>
@@ -162,10 +255,9 @@ export default function ProductDetailsClient({
         </div>
       </div>
 
-      {/* Main product */}
       <section className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12 lg:py-16">
         <div className="grid gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
-          {/* Gallery */}
+          {/* Product gallery */}
           <div className="min-w-0">
             <div className="group relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-50 sm:aspect-[5/4]">
               <ProductImage
@@ -239,9 +331,7 @@ export default function ProductDetailsClient({
                   className="shrink-0 text-neutral-700"
                 />
                 <div>
-                  <p className="text-sm font-medium">
-                    Listing status
-                  </p>
+                  <p className="text-sm font-medium">Listing status</p>
                   <p className="mt-1 text-xs leading-5 text-neutral-500">
                     {statusLabels[product.status] || product.status}
                   </p>
@@ -255,9 +345,7 @@ export default function ProductDetailsClient({
                   className="shrink-0 text-neutral-700"
                 />
                 <div>
-                  <p className="text-sm font-medium">
-                    Better reuse
-                  </p>
+                  <p className="text-sm font-medium">Better reuse</p>
                   <p className="mt-1 text-xs leading-5 text-neutral-500">
                     Give useful electronics another life.
                   </p>
@@ -274,8 +362,7 @@ export default function ProductDetailsClient({
               </span>
 
               <span className="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-700">
-                {conditionLabels[product.condition] ||
-                  product.condition}
+                {conditionLabels[product.condition] || product.condition}
               </span>
             </div>
 
@@ -285,9 +372,7 @@ export default function ProductDetailsClient({
 
             {(product.brand || product.model) && (
               <p className="mt-3 text-sm text-neutral-500">
-                {[product.brand, product.model]
-                  .filter(Boolean)
-                  .join(" · ")}
+                {[product.brand, product.model].filter(Boolean).join(" · ")}
               </p>
             )}
 
@@ -314,8 +399,8 @@ export default function ProductDetailsClient({
               </div>
 
               <p className="mt-3 text-sm leading-6 text-neutral-500">
-                Product pricing is provided by the seller. Confirm
-                the final price and item condition before purchase.
+                Product pricing is provided by the seller. Confirm the final
+                price and item condition before purchase.
               </p>
             </div>
 
@@ -326,9 +411,7 @@ export default function ProductDetailsClient({
                   <Package size={19} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">
-                    Stock availability
-                  </p>
+                  <p className="text-sm font-medium">Stock availability</p>
                   <p className="mt-1 text-xs text-neutral-500">
                     {Number(product.quantity) > 0
                       ? `${product.quantity} unit${
@@ -344,6 +427,54 @@ export default function ProductDetailsClient({
                   isAvailable ? "bg-neutral-900" : "bg-neutral-300"
                 }`}
               />
+            </div>
+
+            {/* Buy Now and Make an Offer */}
+            <div className="mt-6 space-y-3">
+              <button
+                type="button"
+                onClick={handleBuyNow}
+                disabled={!isAvailable || isBuying}
+                className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-neutral-950 px-5 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:bg-neutral-300"
+              >
+                {isBuying ? (
+                  <>
+                    <LoaderCircle size={18} className="animate-spin" />
+                    Preparing secure checkout...
+                  </>
+                ) : (
+                  <>
+                    <CreditCard size={18} />
+                    Buy Now · {formatPrice(product.estimatedPrice)}
+                  </>
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setOfferError("");
+                  setIsOfferOpen(true);
+                }}
+                disabled={!isAvailable}
+                className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white px-5 text-sm font-semibold text-neutral-900 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <MessageSquare size={18} />
+                Make an Offer
+              </button>
+
+              {buyError && (
+                <div
+                  role="alert"
+                  className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                >
+                  {buyError}
+                </div>
+              )}
+
+              <p className="text-center text-xs leading-5 text-neutral-500">
+                Secure payment is handled by Stripe Checkout.
+              </p>
             </div>
 
             {/* Seller card */}
@@ -396,7 +527,6 @@ export default function ProductDetailsClient({
                     type="button"
                     disabled
                     className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-neutral-100 px-4 text-sm font-medium text-neutral-400"
-                    title="Seller email is not available"
                   >
                     <Mail size={16} />
                     Contact unavailable
@@ -413,8 +543,8 @@ export default function ProductDetailsClient({
               </div>
 
               <p className="mt-4 text-xs leading-5 text-neutral-500">
-                Contact the seller to confirm product details,
-                availability, delivery and payment arrangements.
+                Confirm product details, availability and delivery with the
+                seller before making arrangements.
               </p>
             </div>
 
@@ -438,11 +568,9 @@ export default function ProductDetailsClient({
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-500">
               About this product
             </p>
-
             <h2 className="mt-3 text-2xl font-semibold tracking-tight">
               Product description
             </h2>
-
             <p className="mt-5 whitespace-pre-line text-sm leading-7 text-neutral-600 sm:text-base">
               {product.description?.trim() ||
                 "The seller has not provided a detailed description for this product yet. Contact the seller for more information about its features, condition and usage history."}
@@ -453,7 +581,6 @@ export default function ProductDetailsClient({
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-500">
               Product details
             </p>
-
             <h2 className="mt-3 text-2xl font-semibold tracking-tight">
               Specifications
             </h2>
@@ -466,10 +593,12 @@ export default function ProductDetailsClient({
                 ["Model", product.model || "Not specified"],
                 [
                   "Condition",
-                  conditionLabels[product.condition] ||
-                    product.condition,
+                  conditionLabels[product.condition] || product.condition,
                 ],
-                ["Availability", statusLabels[product.status] || product.status],
+                [
+                  "Availability",
+                  statusLabels[product.status] || product.status,
+                ],
                 ["Quantity", String(product.quantity)],
                 ["Listed on", formatDate(product.createdAt)],
               ].map(([label, value]) => (
@@ -499,7 +628,7 @@ export default function ProductDetailsClient({
                   More to discover
                 </h2>
                 <p className="mt-2 text-sm text-neutral-500">
-                  Other available products in this category.
+                  Other products in this category.
                 </p>
               </div>
 
@@ -512,7 +641,7 @@ export default function ProductDetailsClient({
               </Link>
             </div>
 
-            <div className="mt-7 grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+            <div className="mt-7 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
               {relatedProducts.map((item) => (
                 <Link
                   key={item.id}
@@ -530,11 +659,9 @@ export default function ProductDetailsClient({
                   <p className="mt-3 truncate text-xs text-neutral-500">
                     {item.category?.name || "Electronics"}
                   </p>
-
                   <h3 className="mt-1 line-clamp-2 text-sm font-medium leading-5 text-neutral-900 transition group-hover:text-neutral-500">
                     {item.title}
                   </h3>
-
                   <p className="mt-2 text-base font-semibold">
                     {formatPrice(item.estimatedPrice)}
                   </p>
@@ -545,18 +672,141 @@ export default function ProductDetailsClient({
         )}
       </section>
 
-      {/* Minimal footer */}
+      {/* Make an Offer modal */}
+      {isOfferOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setIsOfferOpen(false);
+            }
+          }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="offer-title"
+            className="w-full max-w-md rounded-3xl border border-neutral-200 bg-white p-6 shadow-2xl sm:p-8"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-500">
+                  Negotiate directly
+                </p>
+                <h2
+                  id="offer-title"
+                  className="mt-2 text-2xl font-semibold tracking-tight"
+                >
+                  Make an Offer
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-neutral-500">
+                  Propose a price to the seller for this product.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsOfferOpen(false)}
+                aria-label="Close offer dialog"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-neutral-200 transition hover:bg-neutral-50"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="mt-6 rounded-2xl bg-neutral-50 p-4">
+              <p className="text-sm font-medium text-neutral-900">
+                {product.title}
+              </p>
+              <p className="mt-1 text-sm text-neutral-500">
+                Listed price: {formatPrice(product.estimatedPrice)}
+              </p>
+            </div>
+
+            <form
+              className="mt-5 space-y-4"
+              onSubmit={(event) => {
+                event.preventDefault();
+                handleOfferEmail();
+              }}
+            >
+              <div>
+                <label
+                  htmlFor="offer-price"
+                  className="mb-2 block text-sm font-medium text-neutral-800"
+                >
+                  Your offer (₹)
+                </label>
+                <input
+                  id="offer-price"
+                  type="number"
+                  min="1"
+                  step="0.01"
+                  required
+                  value={offerPrice}
+                  onChange={(event) => setOfferPrice(event.target.value)}
+                  placeholder="Enter your proposed price"
+                  className="h-12 w-full rounded-xl border border-neutral-200 px-4 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-900"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="offer-message"
+                  className="mb-2 block text-sm font-medium text-neutral-800"
+                >
+                  Message <span className="text-neutral-400">(optional)</span>
+                </label>
+                <textarea
+                  id="offer-message"
+                  rows={3}
+                  maxLength={1000}
+                  value={offerMessage}
+                  onChange={(event) => setOfferMessage(event.target.value)}
+                  placeholder="Add a message for the seller..."
+                  className="w-full resize-y rounded-xl border border-neutral-200 px-4 py-3 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-900"
+                />
+              </div>
+
+              {offerError && (
+                <p role="alert" className="text-sm text-red-600">
+                  {offerError}
+                </p>
+              )}
+
+              {!canContactSeller && (
+                <p className="text-sm text-amber-700">
+                  The seller has not provided an email address.
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={!canContactSeller}
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-neutral-950 px-4 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:bg-neutral-300"
+              >
+                <Mail size={17} />
+                Send offer by email
+              </button>
+
+              <p className="text-xs leading-5 text-neutral-500">
+                This sends your proposal through your email application. It
+                does not create an offer record in EcoValuate.
+              </p>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Footer */}
       <footer className="border-t border-neutral-200">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-7 sm:px-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-7 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200">
               <Leaf size={19} strokeWidth={1.5} />
             </div>
-
             <div>
-              <p className="text-sm font-medium">
-                EcoValuate
-              </p>
+              <p className="text-sm font-medium">EcoValuate</p>
               <p className="mt-1 text-xs text-neutral-500">
                 Give e-waste a second life.
               </p>

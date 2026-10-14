@@ -48,7 +48,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getPayments = void 0;
+exports.createCheckoutSession = exports.getPayments = void 0;
 var httpClient_1 = require("@/lib/axios/httpClient");
 exports.getPayments = function (params) { return __awaiter(void 0, void 0, void 0, function () {
     var error_1;
@@ -67,6 +67,28 @@ exports.getPayments = function (params) { return __awaiter(void 0, void 0, void 
                 error_1 = _c.sent();
                 console.error("Error fetching payments:", error_1);
                 throw error_1;
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.createCheckoutSession = function (orderId) { return __awaiter(void 0, void 0, void 0, function () {
+    var response, error_2;
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, httpClient_1.httpClient.post("/payment/create-checkout-session", { orderId: orderId })];
+            case 1:
+                response = _b.sent();
+                if (!response.success || !((_a = response.data) === null || _a === void 0 ? void 0 : _a.checkoutUrl)) {
+                    throw new Error("Unable to create Stripe Checkout session.");
+                }
+                return [2 /*return*/, response.data];
+            case 2:
+                error_2 = _b.sent();
+                console.error("Error creating Stripe checkout session:", error_2);
+                throw error_2;
             case 3: return [2 /*return*/];
         }
     });

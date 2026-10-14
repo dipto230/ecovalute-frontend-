@@ -20,3 +20,29 @@ export const getPayments = async (params?: IPaymentQuery) => {
     throw error;
   }
 };
+
+export interface ICheckoutSession {
+  sessionId: string;
+  checkoutUrl: string | null;
+  orderId: string;
+  amount: number;
+  currency: string;
+}
+
+export const createCheckoutSession = async (orderId: string) => {
+  try {
+    const response = await httpClient.post<ICheckoutSession>(
+      "/payment/create-checkout-session",
+      { orderId }
+    );
+
+    if (!response.success || !response.data?.checkoutUrl) {
+      throw new Error("Unable to create Stripe Checkout session.");
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error creating Stripe checkout session:", error);
+    throw error;
+  }
+};

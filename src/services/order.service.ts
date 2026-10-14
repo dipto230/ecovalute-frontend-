@@ -57,3 +57,15 @@ export const cancelOrder = async (id: string) => {
     throw error;
   }
 };
+
+
+export const buyNowOrder = async (productId: string) => {
+  try {
+    return await httpClient.post("/orders/buy-now", {
+      productId,
+    });
+  } catch (error) {
+    console.error("Error creating Buy Now order:", error);
+    throw error;
+  }
+};
