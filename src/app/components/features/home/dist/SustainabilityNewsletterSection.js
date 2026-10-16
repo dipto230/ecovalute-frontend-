@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+var image_1 = require("next/image");
 var react_1 = require("react");
 var lucide_react_1 = require("lucide-react");
 require("./sustainability-newsletter.css");
@@ -46,9 +47,9 @@ function SustainabilityNewsletterSection() {
     var _a = react_1.useState(""), email = _a[0], setEmail = _a[1];
     var _b = react_1.useState("idle"), status = _b[0], setStatus = _b[1];
     var _c = react_1.useState(""), message = _c[0], setMessage = _c[1];
-    var _d = react_1.useState(false), loading = _d[0], setLoading = _d[1];
+    var _d = react_1.useState(false), isSubmitting = _d[0], setIsSubmitting = _d[1];
     var handleSubscribe = function (event) { return __awaiter(_this, void 0, void 0, function () {
-        var normalizedEmail, response, data, error_1;
+        var normalizedEmail, response, result, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -59,16 +60,23 @@ function SustainabilityNewsletterSection() {
                         setMessage("Please enter your email address.");
                         return [2 /*return*/];
                     }
-                    setLoading(true);
+                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+                        setStatus("error");
+                        setMessage("Please enter a valid email address.");
+                        return [2 /*return*/];
+                    }
+                    if (!API_BASE_URL) {
+                        setStatus("error");
+                        setMessage("Newsletter service is not configured yet. Please try again later.");
+                        return [2 /*return*/];
+                    }
+                    setIsSubmitting(true);
                     setStatus("idle");
                     setMessage("");
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, 5, 6]);
-                    if (!API_BASE_URL) {
-                        throw new Error("Newsletter service is not configured yet. Please try again later.");
-                    }
-                    return [4 /*yield*/, fetch(API_BASE_URL + "/api/v1/newsletter/subscribe", {
+                    return [4 /*yield*/, fetch(API_BASE_URL.replace(/\/$/, "") + "/api/v1/newsletter/subscribe", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"
@@ -79,13 +87,14 @@ function SustainabilityNewsletterSection() {
                     response = _a.sent();
                     return [4 /*yield*/, response.json()["catch"](function () { return null; })];
                 case 3:
-                    data = _a.sent();
+                    result = _a.sent();
                     if (!response.ok) {
-                        throw new Error((data === null || data === void 0 ? void 0 : data.message) || "Subscription failed. Please try again.");
+                        throw new Error((result === null || result === void 0 ? void 0 : result.message) || (result === null || result === void 0 ? void 0 : result.error) ||
+                            "Unable to subscribe right now. Please try again.");
                     }
                     setStatus("success");
-                    setMessage((data === null || data === void 0 ? void 0 : data.message) ||
-                        "You're on the list! Look out for sustainability updates in your inbox.");
+                    setMessage((result === null || result === void 0 ? void 0 : result.message) ||
+                        "Thanks for subscribing! Stay tuned for a greener future.");
                     setEmail("");
                     return [3 /*break*/, 6];
                 case 4:
@@ -93,80 +102,66 @@ function SustainabilityNewsletterSection() {
                     setStatus("error");
                     setMessage(error_1 instanceof Error
                         ? error_1.message
-                        : "Something went wrong. Please try again.");
+                        : "Something went wrong. Please try again later.");
                     return [3 /*break*/, 6];
                 case 5:
-                    setLoading(false);
+                    setIsSubmitting(false);
                     return [7 /*endfinally*/];
                 case 6: return [2 /*return*/];
             }
         });
     }); };
-    return (React.createElement("section", { className: "sustainability-newsletter" },
+    return (React.createElement("section", { className: "sustainability-newsletter", "aria-labelledby": "sustainability-newsletter-title" },
         React.createElement("div", { className: "sustainability-newsletter__container" },
-            React.createElement("div", { className: "sustainability-newsletter__card" },
-                React.createElement("div", { className: "sustainability-newsletter__content" },
-                    React.createElement("span", { className: "sustainability-newsletter__eyebrow" },
-                        React.createElement(lucide_react_1.Sparkles, { size: 15 }),
-                        "THE GREENER INBOX"),
-                    React.createElement("h2", null,
-                        "Good news for you.",
-                        React.createElement("br", null),
-                        React.createElement("span", null, "Better news for the planet.")),
-                    React.createElement("p", { className: "sustainability-newsletter__description" }, "Get practical e-waste recycling tips, sustainability insights, and responsible electronics updates delivered straight to your inbox."),
-                    React.createElement("div", { className: "sustainability-newsletter__benefits" },
-                        React.createElement("span", null,
-                            React.createElement(lucide_react_1.CheckCircle2, { size: 17 }),
-                            "Simple recycling tips"),
-                        React.createElement("span", null,
-                            React.createElement(lucide_react_1.CheckCircle2, { size: 17 }),
-                            "Sustainable tech insights"),
-                        React.createElement("span", null,
-                            React.createElement(lucide_react_1.CheckCircle2, { size: 17 }),
-                            "Useful updates, not inbox clutter")),
-                    status === "success" ? (React.createElement("div", { className: "sustainability-newsletter__feedback sustainability-newsletter__feedback--success", role: "status", "aria-live": "polite" },
-                        React.createElement(lucide_react_1.CheckCircle2, { size: 20 }),
-                        React.createElement("div", null,
-                            React.createElement("strong", null, "Thanks for joining us!"),
-                            React.createElement("p", null, message)))) : (React.createElement("form", { className: "sustainability-newsletter__form", onSubmit: handleSubscribe },
-                        React.createElement("label", { className: "sustainability-newsletter__input-wrap", htmlFor: "sustainability-newsletter-email" },
-                            React.createElement(lucide_react_1.Mail, { size: 19 }),
-                            React.createElement("input", { id: "sustainability-newsletter-email", type: "email", name: "email", autoComplete: "email", placeholder: "Enter your email address", value: email, onChange: function (event) {
-                                    setEmail(event.target.value);
-                                    if (status === "error") {
-                                        setStatus("idle");
-                                        setMessage("");
-                                    }
-                                }, required: true, maxLength: 254, disabled: loading, "aria-invalid": status === "error", "aria-describedby": status === "error"
-                                    ? "sustainability-newsletter-message"
-                                    : undefined })),
-                        React.createElement("button", { className: "sustainability-newsletter__submit", type: "submit", disabled: loading }, loading ? (React.createElement(React.Fragment, null,
-                            React.createElement(lucide_react_1.LoaderCircle, { className: "sustainability-newsletter__spinner", size: 18 }),
-                            "Subscribing")) : (React.createElement(React.Fragment, null,
-                            "Subscribe",
-                            React.createElement(lucide_react_1.ArrowRight, { size: 17 })))),
-                        status === "error" && (React.createElement("p", { id: "sustainability-newsletter-message", className: "sustainability-newsletter__error", role: "alert" }, message)))),
-                    React.createElement("div", { className: "sustainability-newsletter__privacy" },
-                        React.createElement(lucide_react_1.ShieldCheck, { size: 15 }),
-                        React.createElement("span", null, "Your email should be used only according to our privacy policy. Unsubscribe options should be included in newsletter emails."))),
-                React.createElement("div", { className: "sustainability-newsletter__visual", "aria-hidden": "true" },
-                    React.createElement("div", { className: "sustainability-newsletter__visual-orbit sustainability-newsletter__visual-orbit--outer" }),
-                    React.createElement("div", { className: "sustainability-newsletter__visual-orbit sustainability-newsletter__visual-orbit--inner" }),
-                    React.createElement("div", { className: "sustainability-newsletter__leaf-card" },
-                        React.createElement("div", { className: "sustainability-newsletter__leaf-icon" },
-                            React.createElement(lucide_react_1.Leaf, { size: 54, strokeWidth: 1.35 })),
-                        React.createElement("span", { className: "sustainability-newsletter__leaf-caption" }, "SMALL STEPS"),
-                        React.createElement("strong", null, "Greener living, one email at a time.")),
-                    React.createElement("div", { className: "sustainability-newsletter__floating sustainability-newsletter__floating--mail" },
-                        React.createElement(lucide_react_1.Mail, { size: 22 })),
-                    React.createElement("div", { className: "sustainability-newsletter__floating sustainability-newsletter__floating--leaf" },
-                        React.createElement(lucide_react_1.Leaf, { size: 22 })),
-                    React.createElement("div", { className: "sustainability-newsletter__visual-dot sustainability-newsletter__visual-dot--one" }),
-                    React.createElement("div", { className: "sustainability-newsletter__visual-dot sustainability-newsletter__visual-dot--two" }))),
-            React.createElement("div", { className: "sustainability-newsletter__bottom" },
-                React.createElement("span", null,
-                    React.createElement(lucide_react_1.Leaf, { size: 15 }),
-                    "A more sustainable future starts with better choices."),
-                React.createElement("span", { className: "sustainability-newsletter__brand" }, "EcoValuate")))));
+            React.createElement("div", { className: "sustainability-newsletter__content" },
+                React.createElement("div", { className: "sustainability-newsletter__eyebrow" },
+                    React.createElement("span", { className: "sustainability-newsletter__eyebrow-icon" },
+                        React.createElement(lucide_react_1.Leaf, { size: 15, "aria-hidden": "true" })),
+                    React.createElement("span", null, "THE GREEN CIRCLE")),
+                React.createElement("h2", { id: "sustainability-newsletter-title", className: "sustainability-newsletter__title" },
+                    "Small Updates.",
+                    React.createElement("br", null),
+                    React.createElement("span", null, "Big Impact.")),
+                React.createElement("p", { className: "sustainability-newsletter__description" }, "Join our sustainability community and discover smarter ways to recycle electronics, reduce e-waste, and build a greener future."),
+                React.createElement("form", { className: "sustainability-newsletter__form", onSubmit: handleSubscribe, noValidate: true },
+                    React.createElement("label", { className: "sustainability-newsletter__input-wrapper", htmlFor: "sustainability-newsletter-email" },
+                        React.createElement(lucide_react_1.Mail, { className: "sustainability-newsletter__input-icon", size: 19, "aria-hidden": "true" }),
+                        React.createElement("input", { id: "sustainability-newsletter-email", className: "sustainability-newsletter__input", type: "email", name: "email", placeholder: "Enter your email address", autoComplete: "email", value: email, onChange: function (event) {
+                                setEmail(event.target.value);
+                                if (status !== "idle") {
+                                    setStatus("idle");
+                                    setMessage("");
+                                }
+                            }, disabled: isSubmitting, "aria-invalid": status === "error", "aria-describedby": message ? "sustainability-newsletter-message" : undefined })),
+                    React.createElement("button", { className: "sustainability-newsletter__button", type: "submit", disabled: isSubmitting }, isSubmitting ? (React.createElement(React.Fragment, null,
+                        React.createElement(lucide_react_1.LoaderCircle, { size: 18, className: "sustainability-newsletter__spinner", "aria-hidden": "true" }),
+                        React.createElement("span", null, "Subscribing..."))) : (React.createElement(React.Fragment, null,
+                        React.createElement("span", null, "Subscribe"),
+                        React.createElement(lucide_react_1.ArrowRight, { size: 18, "aria-hidden": "true" }))))),
+                message && (React.createElement("p", { id: "sustainability-newsletter-message", className: "sustainability-newsletter__message sustainability-newsletter__message--" + status, role: status === "error" ? "alert" : "status" },
+                    status === "success" ? (React.createElement(lucide_react_1.CheckCircle2, { size: 17, "aria-hidden": "true" })) : status === "error" ? (React.createElement(lucide_react_1.ShieldCheck, { size: 17, "aria-hidden": "true" })) : null,
+                    React.createElement("span", null, message))),
+                React.createElement("div", { className: "sustainability-newsletter__trust" },
+                    React.createElement("span", { className: "sustainability-newsletter__trust-icon" },
+                        React.createElement(lucide_react_1.ShieldCheck, { size: 16, "aria-hidden": "true" })),
+                    React.createElement("span", null, "No spam, ever. Just meaningful steps toward sustainability.")),
+                React.createElement("div", { className: "sustainability-newsletter__highlights" },
+                    React.createElement("div", { className: "sustainability-newsletter__highlight" },
+                        React.createElement("span", { className: "sustainability-newsletter__highlight-icon" },
+                            React.createElement(lucide_react_1.Leaf, { size: 17, "aria-hidden": "true" })),
+                        React.createElement("span", null, "Eco-friendly tips")),
+                    React.createElement("div", { className: "sustainability-newsletter__highlight" },
+                        React.createElement("span", { className: "sustainability-newsletter__highlight-icon" },
+                            React.createElement(lucide_react_1.Sparkles, { size: 17, "aria-hidden": "true" })),
+                        React.createElement("span", null, "Green innovations")))),
+            React.createElement("div", { className: "sustainability-newsletter__visual" },
+                React.createElement("div", { className: "sustainability-newsletter__image-frame" },
+                    React.createElement(image_1["default"], { src: "/NEWS_LETTER_SECTION.png", alt: "EcoValuate sustainability newsletter illustration about responsible electronic waste recycling", width: 600, height: 600, className: "sustainability-newsletter__image", sizes: "(max-width: 760px) 100vw, 45vw" })),
+                React.createElement("div", { className: "sustainability-newsletter__image-caption" },
+                    React.createElement("span", { className: "sustainability-newsletter__caption-icon" },
+                        React.createElement(lucide_react_1.Leaf, { size: 18, "aria-hidden": "true" })),
+                    React.createElement("div", null,
+                        React.createElement("p", { className: "sustainability-newsletter__caption-title" }, "A greener tomorrow"),
+                        React.createElement("p", { className: "sustainability-newsletter__caption-description" }, "One mindful choice at a time.")))))));
 }
 exports["default"] = SustainabilityNewsletterSection;

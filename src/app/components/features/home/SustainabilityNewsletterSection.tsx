@@ -1,5 +1,7 @@
+
 "use client";
 
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import {
   ArrowRight,
@@ -16,9 +18,11 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function SustainabilityNewsletterSection() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubscribe = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,40 +35,50 @@ export default function SustainabilityNewsletterSection() {
       return;
     }
 
-    setLoading(true);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+      setStatus("error");
+      setMessage("Please enter a valid email address.");
+      return;
+    }
+
+    if (!API_BASE_URL) {
+      setStatus("error");
+      setMessage(
+        "Newsletter service is not configured yet. Please try again later.",
+      );
+      return;
+    }
+
+    setIsSubmitting(true);
     setStatus("idle");
     setMessage("");
 
     try {
-      if (!API_BASE_URL) {
-        throw new Error(
-          "Newsletter service is not configured yet. Please try again later."
-        );
-      }
-
       const response = await fetch(
-        `${API_BASE_URL}/api/v1/newsletter/subscribe`,
+        `${API_BASE_URL.replace(/\/$/, "")}/api/v1/newsletter/subscribe`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email: normalizedEmail }),
-        }
+        },
       );
 
-      const data = await response.json().catch(() => null);
+      const result = await response.json().catch(() => null);
 
       if (!response.ok) {
         throw new Error(
-          data?.message || "Subscription failed. Please try again."
+          result?.message ||
+            result?.error ||
+            "Unable to subscribe right now. Please try again.",
         );
       }
 
       setStatus("success");
       setMessage(
-        data?.message ||
-          "You're on the list! Look out for sustainability updates in your inbox."
+        result?.message ||
+          "Thanks for subscribing! Stay tuned for a greener future.",
       );
       setEmail("");
     } catch (error) {
@@ -72,176 +86,174 @@ export default function SustainabilityNewsletterSection() {
       setMessage(
         error instanceof Error
           ? error.message
-          : "Something went wrong. Please try again."
+          : "Something went wrong. Please try again later.",
       );
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <section className="sustainability-newsletter">
+    <section
+      className="sustainability-newsletter"
+      aria-labelledby="sustainability-newsletter-title"
+    >
       <div className="sustainability-newsletter__container">
-        <div className="sustainability-newsletter__card">
-          <div className="sustainability-newsletter__content">
-            <span className="sustainability-newsletter__eyebrow">
-              <Sparkles size={15} />
-              THE GREENER INBOX
+        {/* Left content */}
+        <div className="sustainability-newsletter__content">
+          <div className="sustainability-newsletter__eyebrow">
+            <span className="sustainability-newsletter__eyebrow-icon">
+              <Leaf size={15} aria-hidden="true" />
             </span>
-
-            <h2>
-              Good news for you.
-              <br />
-              <span>Better news for the planet.</span>
-            </h2>
-
-            <p className="sustainability-newsletter__description">
-              Get practical e-waste recycling tips, sustainability insights,
-              and responsible electronics updates delivered straight to your
-              inbox.
-            </p>
-
-            <div className="sustainability-newsletter__benefits">
-              <span>
-                <CheckCircle2 size={17} />
-                Simple recycling tips
-              </span>
-              <span>
-                <CheckCircle2 size={17} />
-                Sustainable tech insights
-              </span>
-              <span>
-                <CheckCircle2 size={17} />
-                Useful updates, not inbox clutter
-              </span>
-            </div>
-
-            {status === "success" ? (
-              <div
-                className="sustainability-newsletter__feedback sustainability-newsletter__feedback--success"
-                role="status"
-                aria-live="polite"
-              >
-                <CheckCircle2 size={20} />
-                <div>
-                  <strong>Thanks for joining us!</strong>
-                  <p>{message}</p>
-                </div>
-              </div>
-            ) : (
-              <form
-                className="sustainability-newsletter__form"
-                onSubmit={handleSubscribe}
-              >
-                <label
-                  className="sustainability-newsletter__input-wrap"
-                  htmlFor="sustainability-newsletter-email"
-                >
-                  <Mail size={19} />
-                  <input
-                    id="sustainability-newsletter-email"
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    placeholder="Enter your email address"
-                    value={email}
-                    onChange={(event) => {
-                      setEmail(event.target.value);
-                      if (status === "error") {
-                        setStatus("idle");
-                        setMessage("");
-                      }
-                    }}
-                    required
-                    maxLength={254}
-                    disabled={loading}
-                    aria-invalid={status === "error"}
-                    aria-describedby={
-                      status === "error"
-                        ? "sustainability-newsletter-message"
-                        : undefined
-                    }
-                  />
-                </label>
-
-                <button
-                  className="sustainability-newsletter__submit"
-                  type="submit"
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      <LoaderCircle className="sustainability-newsletter__spinner" size={18} />
-                      Subscribing
-                    </>
-                  ) : (
-                    <>
-                      Subscribe
-                      <ArrowRight size={17} />
-                    </>
-                  )}
-                </button>
-
-                {status === "error" && (
-                  <p
-                    id="sustainability-newsletter-message"
-                    className="sustainability-newsletter__error"
-                    role="alert"
-                  >
-                    {message}
-                  </p>
-                )}
-              </form>
-            )}
-
-            <div className="sustainability-newsletter__privacy">
-              <ShieldCheck size={15} />
-              <span>
-                Your email should be used only according to our privacy policy.
-                Unsubscribe options should be included in newsletter emails.
-              </span>
-            </div>
+            <span>THE GREEN CIRCLE</span>
           </div>
 
-          <div
-            className="sustainability-newsletter__visual"
-            aria-hidden="true"
+          <h2
+            id="sustainability-newsletter-title"
+            className="sustainability-newsletter__title"
           >
-            <div className="sustainability-newsletter__visual-orbit sustainability-newsletter__visual-orbit--outer" />
-            <div className="sustainability-newsletter__visual-orbit sustainability-newsletter__visual-orbit--inner" />
+            Small Updates.
+            <br />
+            <span>Big Impact.</span>
+          </h2>
 
-            <div className="sustainability-newsletter__leaf-card">
-              <div className="sustainability-newsletter__leaf-icon">
-                <Leaf size={54} strokeWidth={1.35} />
-              </div>
+          <p className="sustainability-newsletter__description">
+            Join our sustainability community and discover smarter ways to
+            recycle electronics, reduce e-waste, and build a greener future.
+          </p>
 
-              <span className="sustainability-newsletter__leaf-caption">
-                SMALL STEPS
+          <form
+            className="sustainability-newsletter__form"
+            onSubmit={handleSubscribe}
+            noValidate
+          >
+            <label
+              className="sustainability-newsletter__input-wrapper"
+              htmlFor="sustainability-newsletter-email"
+            >
+              <Mail
+                className="sustainability-newsletter__input-icon"
+                size={19}
+                aria-hidden="true"
+              />
+
+              <input
+                id="sustainability-newsletter-email"
+                className="sustainability-newsletter__input"
+                type="email"
+                name="email"
+                placeholder="Enter your email address"
+                autoComplete="email"
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+
+                  if (status !== "idle") {
+                    setStatus("idle");
+                    setMessage("");
+                  }
+                }}
+                disabled={isSubmitting}
+                aria-invalid={status === "error"}
+                aria-describedby={
+                  message ? "sustainability-newsletter-message" : undefined
+                }
+              />
+            </label>
+
+            <button
+              className="sustainability-newsletter__button"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <LoaderCircle
+                    size={18}
+                    className="sustainability-newsletter__spinner"
+                    aria-hidden="true"
+                  />
+                  <span>Subscribing...</span>
+                </>
+              ) : (
+                <>
+                  <span>Subscribe</span>
+                  <ArrowRight size={18} aria-hidden="true" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {message && (
+            <p
+              id="sustainability-newsletter-message"
+              className={`sustainability-newsletter__message sustainability-newsletter__message--${status}`}
+              role={status === "error" ? "alert" : "status"}
+            >
+              {status === "success" ? (
+                <CheckCircle2 size={17} aria-hidden="true" />
+              ) : status === "error" ? (
+                <ShieldCheck size={17} aria-hidden="true" />
+              ) : null}
+
+              <span>{message}</span>
+            </p>
+          )}
+
+          <div className="sustainability-newsletter__trust">
+            <span className="sustainability-newsletter__trust-icon">
+              <ShieldCheck size={16} aria-hidden="true" />
+            </span>
+
+            <span>
+              No spam, ever. Just meaningful steps toward sustainability.
+            </span>
+          </div>
+
+          <div className="sustainability-newsletter__highlights">
+            <div className="sustainability-newsletter__highlight">
+              <span className="sustainability-newsletter__highlight-icon">
+                <Leaf size={17} aria-hidden="true" />
               </span>
-              <strong>Greener living, one email at a time.</strong>
+              <span>Eco-friendly tips</span>
             </div>
 
-            <div className="sustainability-newsletter__floating sustainability-newsletter__floating--mail">
-              <Mail size={22} />
+            <div className="sustainability-newsletter__highlight">
+              <span className="sustainability-newsletter__highlight-icon">
+                <Sparkles size={17} aria-hidden="true" />
+              </span>
+              <span>Green innovations</span>
             </div>
-
-            <div className="sustainability-newsletter__floating sustainability-newsletter__floating--leaf">
-              <Leaf size={22} />
-            </div>
-
-            <div className="sustainability-newsletter__visual-dot sustainability-newsletter__visual-dot--one" />
-            <div className="sustainability-newsletter__visual-dot sustainability-newsletter__visual-dot--two" />
           </div>
         </div>
 
-        <div className="sustainability-newsletter__bottom">
-          <span>
-            <Leaf size={15} />
-            A more sustainable future starts with better choices.
-          </span>
-          <span className="sustainability-newsletter__brand">
-            EcoValuate
-          </span>
+        {/* Right image */}
+        <div className="sustainability-newsletter__visual">
+          <div className="sustainability-newsletter__image-frame">
+            <Image
+              src="/NEWS_LETTER_SECTION.png"
+              alt="EcoValuate sustainability newsletter illustration about responsible electronic waste recycling"
+              width={600}
+              height={600}
+              className="sustainability-newsletter__image"
+              sizes="(max-width: 760px) 100vw, 45vw"
+            />
+          </div>
+
+          <div className="sustainability-newsletter__image-caption">
+            <span className="sustainability-newsletter__caption-icon">
+              <Leaf size={18} aria-hidden="true" />
+            </span>
+
+            <div>
+              <p className="sustainability-newsletter__caption-title">
+                A greener tomorrow
+              </p>
+              <p className="sustainability-newsletter__caption-description">
+                One mindful choice at a time.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
