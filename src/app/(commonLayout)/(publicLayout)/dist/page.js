@@ -8,6 +8,7 @@ var FAQSection_1 = require("../../components/features/home/FAQSection");
 var HeroSection_1 = require("../../components/features/home/HeroSection");
 var LiveMarketSection_1 = require("../../components/features/home/LiveMarketSection");
 var SecureEWasteDisposalSection_1 = require("../../components/features/home/SecureEWasteDisposalSection");
+var SustainabilityNewsletterSection_1 = require("../../components/features/home/SustainabilityNewsletterSection");
 function HomePage() {
     return (React.createElement("main", null,
         React.createElement(HeroSection_1["default"], null),
@@ -17,6 +18,7 @@ function HomePage() {
         React.createElement(LiveMarketSection_1["default"], null),
         React.createElement(FAQSection_1["default"], null),
         React.createElement(EnvironmentalImpactSection_1["default"], null),
-        React.createElement(SecureEWasteDisposalSection_1["default"], null)));
+        React.createElement(SecureEWasteDisposalSection_1["default"], null),
+        React.createElement(SustainabilityNewsletterSection_1["default"], null)));
 }
 exports["default"] = HomePage;

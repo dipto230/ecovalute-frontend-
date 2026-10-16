@@ -6,6 +6,7 @@ import FAQSection from "../../components/features/home/FAQSection";
 import HeroSection from "../../components/features/home/HeroSection";
 import LiveMarketSection from "../../components/features/home/LiveMarketSection";
 import SecureEWasteDisposalSection from "../../components/features/home/SecureEWasteDisposalSection";
+import SustainabilityNewsletterSection from "../../components/features/home/SustainabilityNewsletterSection";
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
       <FAQSection />
       <EnvironmentalImpactSection />
       <SecureEWasteDisposalSection />
+      <SustainabilityNewsletterSection/>
     </main>
   );
 }

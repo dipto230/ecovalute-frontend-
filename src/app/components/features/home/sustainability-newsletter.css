@@ -1,0 +1,497 @@
+.sustainability-newsletter {
+  padding: 85px 24px;
+  overflow: hidden;
+  background: #ffffff;
+  color: #17392b;
+}
+
+.sustainability-newsletter * {
+  box-sizing: border-box;
+}
+
+.sustainability-newsletter__container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.sustainability-newsletter__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 25px;
+  min-height: 440px;
+  padding: 58px 62px;
+  overflow: hidden;
+  border: 1px solid #e0eee4;
+  border-radius: 28px;
+  background:
+    radial-gradient(
+      circle at 82% 40%,
+      rgba(180, 231, 195, 0.28),
+      transparent 33%
+    ),
+    linear-gradient(125deg, #f5fbf6 0%, #ffffff 55%, #edf9f0 100%);
+}
+
+.sustainability-newsletter__content {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+}
+
+.sustainability-newsletter__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #16865d;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.sustainability-newsletter__content h2 {
+  margin: 20px 0 17px;
+  color: #17392b;
+  font-size: clamp(32px, 4vw, 47px);
+  font-weight: 800;
+  letter-spacing: -1.9px;
+  line-height: 1.18;
+}
+
+.sustainability-newsletter__content h2 span {
+  color: #159565;
+}
+
+.sustainability-newsletter__description {
+  max-width: 535px;
+  margin: 0;
+  color: #738178;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.sustainability-newsletter__benefits {
+  display: grid;
+  gap: 11px;
+  margin: 24px 0;
+}
+
+.sustainability-newsletter__benefits span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #456352;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sustainability-newsletter__benefits svg {
+  flex-shrink: 0;
+  color: #16865d;
+}
+
+.sustainability-newsletter__form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  max-width: 570px;
+}
+
+.sustainability-newsletter__input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  min-height: 52px;
+  padding: 0 15px;
+  border: 1px solid #dce9df;
+  border-radius: 11px;
+  background: #ffffff;
+  color: #8a9b8f;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.sustainability-newsletter__input-wrap:focus-within {
+  border-color: #16865d;
+  box-shadow: 0 0 0 3px rgba(22, 134, 93, 0.09);
+}
+
+.sustainability-newsletter__input-wrap svg {
+  flex-shrink: 0;
+}
+
+.sustainability-newsletter__input-wrap input {
+  width: 100%;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #17392b;
+  font: inherit;
+  font-size: 12px;
+}
+
+.sustainability-newsletter__input-wrap input::placeholder {
+  color: #9aa79e;
+}
+
+.sustainability-newsletter__input-wrap input:disabled {
+  cursor: not-allowed;
+}
+
+.sustainability-newsletter__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 52px;
+  padding: 0 20px;
+  border: 1px solid #16865d;
+  border-radius: 11px;
+  background: #16865d;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.sustainability-newsletter__submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #106d4a;
+  box-shadow: 0 8px 20px rgba(22, 134, 93, 0.17);
+}
+
+.sustainability-newsletter__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.sustainability-newsletter__spinner {
+  animation: sustainability-newsletter-spin 1s linear infinite;
+}
+
+@keyframes sustainability-newsletter-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sustainability-newsletter__error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #c24141;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.sustainability-newsletter__feedback {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 570px;
+  padding: 16px;
+  border: 1px solid #ccebd6;
+  border-radius: 12px;
+  background: #f1fbf4;
+  color: #16865d;
+}
+
+.sustainability-newsletter__feedback > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.sustainability-newsletter__feedback strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.sustainability-newsletter__feedback p {
+  margin: 0;
+  color: #557361;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.sustainability-newsletter__privacy {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 550px;
+  margin-top: 16px;
+  color: #8a978e;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.sustainability-newsletter__privacy svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #16865d;
+}
+
+.sustainability-newsletter__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+}
+
+.sustainability-newsletter__visual-orbit {
+  position: absolute;
+  border: 1px solid rgba(22, 134, 93, 0.15);
+  border-radius: 50%;
+}
+
+.sustainability-newsletter__visual-orbit--outer {
+  width: 300px;
+  height: 300px;
+}
+
+.sustainability-newsletter__visual-orbit--inner {
+  width: 235px;
+  height: 235px;
+}
+
+.sustainability-newsletter__leaf-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 220px;
+  min-height: 235px;
+  padding: 25px;
+  border: 1px solid #e1eee4;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.94);
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(29, 78, 48, 0.07);
+  transform: rotate(-3deg);
+}
+
+.sustainability-newsletter__leaf-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 17px;
+  border: 1px solid #d8efdf;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #f5fcf6, #e3f6e8);
+  color: #16865d;
+}
+
+.sustainability-newsletter__leaf-caption {
+  margin-bottom: 9px;
+  color: #16865d;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.sustainability-newsletter__leaf-card strong {
+  max-width: 170px;
+  color: #214735;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.6;
+}
+
+.sustainability-newsletter__floating {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 49px;
+  height: 49px;
+  border: 1px solid #e0eee4;
+  border-radius: 15px;
+  background: #ffffff;
+  color: #16865d;
+  box-shadow: 0 10px 25px rgba(26, 77, 48, 0.08);
+}
+
+.sustainability-newsletter__floating--mail {
+  top: 26px;
+  right: 10%;
+  transform: rotate(8deg);
+}
+
+.sustainability-newsletter__floating--leaf {
+  bottom: 24px;
+  left: 9%;
+  transform: rotate(-9deg);
+}
+
+.sustainability-newsletter__visual-dot {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #76c994;
+}
+
+.sustainability-newsletter__visual-dot--one {
+  top: 15%;
+  left: 20%;
+}
+
+.sustainability-newsletter__visual-dot--two {
+  right: 15%;
+  bottom: 18%;
+  width: 13px;
+  height: 13px;
+  background: #b1dfbd;
+}
+
+.sustainability-newsletter__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 23px 5px 0;
+}
+
+.sustainability-newsletter__bottom > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #7a8980;
+  font-size: 11px;
+}
+
+.sustainability-newsletter__bottom > span:first-child svg {
+  flex-shrink: 0;
+  color: #16865d;
+}
+
+.sustainability-newsletter__brand {
+  color: #16865d;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 1000px) {
+  .sustainability-newsletter {
+    padding: 70px 22px;
+  }
+
+  .sustainability-newsletter__card {
+    grid-template-columns: 1fr 0.75fr;
+    gap: 10px;
+    padding: 42px;
+  }
+
+  .sustainability-newsletter__visual-orbit--outer {
+    width: 245px;
+    height: 245px;
+  }
+
+  .sustainability-newsletter__visual-orbit--inner {
+    width: 195px;
+    height: 195px;
+  }
+
+  .sustainability-newsletter__leaf-card {
+    width: 190px;
+    min-height: 210px;
+    padding: 20px;
+  }
+
+  .sustainability-newsletter__leaf-icon {
+    width: 82px;
+    height: 82px;
+  }
+}
+
+@media (max-width: 760px) {
+  .sustainability-newsletter {
+    padding: 60px 17px;
+  }
+
+  .sustainability-newsletter__card {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 31px 24px;
+    border-radius: 22px;
+  }
+
+  .sustainability-newsletter__content h2 {
+    font-size: clamp(30px, 7vw, 40px);
+    letter-spacing: -1.4px;
+  }
+
+  .sustainability-newsletter__description {
+    font-size: 13px;
+  }
+
+  .sustainability-newsletter__visual {
+    min-height: 290px;
+  }
+
+  .sustainability-newsletter__bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sustainability-newsletter__form {
+    grid-template-columns: 1fr;
+  }
+
+  .sustainability-newsletter__submit {
+    width: 100%;
+  }
+
+  .sustainability-newsletter__visual {
+    min-height: 260px;
+  }
+
+  .sustainability-newsletter__visual-orbit--outer {
+    width: 235px;
+    height: 235px;
+  }
+
+  .sustainability-newsletter__visual-orbit--inner {
+    width: 190px;
+    height: 190px;
+  }
+
+  .sustainability-newsletter__floating--mail {
+    right: 3%;
+  }
+
+  .sustainability-newsletter__floating--leaf {
+    left: 3%;
+  }
+
+  .sustainability-newsletter__privacy {
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sustainability-newsletter *,
+  .sustainability-newsletter *::before,
+  .sustainability-newsletter *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
