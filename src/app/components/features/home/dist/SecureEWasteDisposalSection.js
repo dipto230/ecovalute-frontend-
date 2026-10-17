@@ -1,6 +1,7 @@
 "use client";
 "use strict";
 exports.__esModule = true;
+var image_1 = require("next/image");
 var link_1 = require("next/link");
 var lucide_react_1 = require("lucide-react");
 require("./secure-ewaste-disposal.css");
@@ -82,18 +83,29 @@ function SecureEWasteDisposalSection() {
                     React.createElement(link_1["default"], { href: "/price-estimation", className: "secure-disposal__primary-button" },
                         "Assess Your Device",
                         React.createElement(lucide_react_1.ArrowRight, { size: 17 }))),
-                React.createElement("div", { className: "secure-disposal__hero-art", "aria-hidden": "true" },
-                    React.createElement("div", { className: "secure-disposal__orbit secure-disposal__orbit--outer" }),
-                    React.createElement("div", { className: "secure-disposal__orbit secure-disposal__orbit--inner" }),
-                    React.createElement("div", { className: "secure-disposal__device secure-disposal__device--laptop" },
-                        React.createElement(lucide_react_1.Laptop, { size: 65, strokeWidth: 1.3 })),
-                    React.createElement("div", { className: "secure-disposal__device secure-disposal__device--phone" },
-                        React.createElement(lucide_react_1.Smartphone, { size: 42, strokeWidth: 1.4 })),
-                    React.createElement("div", { className: "secure-disposal__shield" },
-                        React.createElement(lucide_react_1.ShieldCheck, { size: 48, strokeWidth: 1.5 })),
-                    React.createElement("div", { className: "secure-disposal__art-tag" },
-                        React.createElement(lucide_react_1.Leaf, { size: 15 }),
-                        "Better for tomorrow"))),
+                React.createElement("div", { className: "secure-disposal__hero-art" },
+                    React.createElement("div", { className: "secure-disposal__image-glow" }),
+                    React.createElement("div", { className: "secure-disposal__image-frame" },
+                        React.createElement(image_1["default"], { src: "/Secure%20E-Waste%20Recycling%20Hub.png", alt: "Secure e-waste recycling hub for responsible electronics recycling and data protection", fill: true, priority: true, sizes: "(max-width: 720px) 100vw, 45vw", className: "secure-disposal__hero-image" }),
+                        React.createElement("div", { className: "secure-disposal__image-shade" }),
+                        React.createElement("div", { className: "secure-disposal__image-top-badge" },
+                            React.createElement(lucide_react_1.ShieldCheck, { size: 18 }),
+                            React.createElement("span", null,
+                                React.createElement("strong", null, "Security First"),
+                                React.createElement("small", null, "Responsible e-waste care"))),
+                        React.createElement("div", { className: "secure-disposal__image-bottom" },
+                            React.createElement("div", { className: "secure-disposal__image-bottom-icon" },
+                                React.createElement(lucide_react_1.LockKeyhole, { size: 21 })),
+                            React.createElement("div", null,
+                                React.createElement("h4", null, "Protect Data. Preserve Earth."),
+                                React.createElement("p", null, "Every device deserves a responsible next step.")))),
+                    React.createElement("div", { className: "secure-disposal__floating-badge" },
+                        React.createElement("span", { className: "secure-disposal__floating-icon" },
+                            React.createElement(lucide_react_1.Recycle, { size: 19 })),
+                        React.createElement("span", null,
+                            React.createElement("strong", null, "Recycle Responsibly"),
+                            React.createElement("small", null, "A better electronic future")),
+                        React.createElement(lucide_react_1.CheckCircle2, { className: "secure-disposal__floating-check", size: 19 })))),
             React.createElement("div", { className: "secure-disposal__features" }, safetyFeatures.map(function (feature) {
                 var Icon = feature.icon;
                 return (React.createElement("article", { className: "secure-disposal__feature-card", key: feature.title },

@@ -1,5 +1,7 @@
+
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -9,10 +11,10 @@ import {
   BatteryWarning,
   CheckCircle2,
   Smartphone,
-  Laptop,
   HardDrive,
   Leaf,
 } from "lucide-react";
+
 import "./secure-ewaste-disposal.css";
 
 const disposalSteps = [
@@ -71,6 +73,7 @@ export default function SecureEWasteDisposalSection() {
   return (
     <section className="secure-disposal">
       <div className="secure-disposal__container">
+        {/* Section Introduction */}
         <div className="secure-disposal__intro">
           <span className="secure-disposal__eyebrow">
             <ShieldCheck size={16} />
@@ -90,6 +93,7 @@ export default function SecureEWasteDisposalSection() {
           </p>
         </div>
 
+        {/* Premium Hero */}
         <div className="secure-disposal__hero">
           <div className="secure-disposal__hero-content">
             <div className="secure-disposal__hero-badge">
@@ -113,10 +117,12 @@ export default function SecureEWasteDisposalSection() {
                 <CheckCircle2 size={17} />
                 Personal data protection
               </span>
+
               <span>
                 <CheckCircle2 size={17} />
                 Responsible disposal choices
               </span>
+
               <span>
                 <CheckCircle2 size={17} />
                 Safer battery handling
@@ -132,32 +138,65 @@ export default function SecureEWasteDisposalSection() {
             </Link>
           </div>
 
-          <div
-            className="secure-disposal__hero-art"
-            aria-hidden="true"
-          >
-            <div className="secure-disposal__orbit secure-disposal__orbit--outer" />
-            <div className="secure-disposal__orbit secure-disposal__orbit--inner" />
+          {/* Right-side Image */}
+          <div className="secure-disposal__hero-art">
+            <div className="secure-disposal__image-glow" />
 
-            <div className="secure-disposal__device secure-disposal__device--laptop">
-              <Laptop size={65} strokeWidth={1.3} />
+            <div className="secure-disposal__image-frame">
+              <Image
+                src="/Secure%20E-Waste%20Recycling%20Hub.png"
+                alt="Secure e-waste recycling hub for responsible electronics recycling and data protection"
+                fill
+                priority
+                sizes="(max-width: 720px) 100vw, 45vw"
+                className="secure-disposal__hero-image"
+              />
+
+              <div className="secure-disposal__image-shade" />
+
+              <div className="secure-disposal__image-top-badge">
+                <ShieldCheck size={18} />
+
+                <span>
+                  <strong>Security First</strong>
+                  <small>Responsible e-waste care</small>
+                </span>
+              </div>
+
+              <div className="secure-disposal__image-bottom">
+                <div className="secure-disposal__image-bottom-icon">
+                  <LockKeyhole size={21} />
+                </div>
+
+                <div>
+                  <h4>Protect Data. Preserve Earth.</h4>
+                  <p>
+                    Every device deserves a responsible next step.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="secure-disposal__device secure-disposal__device--phone">
-              <Smartphone size={42} strokeWidth={1.4} />
-            </div>
+            {/* Floating Badge */}
+            <div className="secure-disposal__floating-badge">
+              <span className="secure-disposal__floating-icon">
+                <Recycle size={19} />
+              </span>
 
-            <div className="secure-disposal__shield">
-              <ShieldCheck size={48} strokeWidth={1.5} />
-            </div>
+              <span>
+                <strong>Recycle Responsibly</strong>
+                <small>A better electronic future</small>
+              </span>
 
-            <div className="secure-disposal__art-tag">
-              <Leaf size={15} />
-              Better for tomorrow
+              <CheckCircle2
+                className="secure-disposal__floating-check"
+                size={19}
+              />
             </div>
           </div>
         </div>
 
+        {/* Safety Feature Cards */}
         <div className="secure-disposal__features">
           {safetyFeatures.map((feature) => {
             const Icon = feature.icon;
@@ -178,6 +217,7 @@ export default function SecureEWasteDisposalSection() {
           })}
         </div>
 
+        {/* Disposal Process */}
         <div className="secure-disposal__process">
           <div className="secure-disposal__process-heading">
             <span className="secure-disposal__eyebrow">
@@ -220,6 +260,7 @@ export default function SecureEWasteDisposalSection() {
           </div>
         </div>
 
+        {/* Battery Safety Warning */}
         <div className="secure-disposal__warning">
           <div className="secure-disposal__warning-icon">
             <BatteryWarning size={23} />
@@ -227,6 +268,7 @@ export default function SecureEWasteDisposalSection() {
 
           <div className="secure-disposal__warning-copy">
             <h4>Important: damaged batteries need extra care.</h4>
+
             <p>
               If a battery is swollen, hot, leaking, or damaged, stop using
               the device. Do not charge, puncture, or dismantle it. Keep it
@@ -237,6 +279,7 @@ export default function SecureEWasteDisposalSection() {
           </div>
         </div>
 
+        {/* Bottom Call to Action */}
         <div className="secure-disposal__bottom-cta">
           <div className="secure-disposal__bottom-icon">
             <HardDrive size={25} />
@@ -244,6 +287,7 @@ export default function SecureEWasteDisposalSection() {
 
           <div className="secure-disposal__bottom-copy">
             <h3>Give your old electronics a better next step.</h3>
+
             <p>
               Explore device valuation or browse available products on
               EcoValuate.
