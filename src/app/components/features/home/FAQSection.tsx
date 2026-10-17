@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -79,7 +80,8 @@ const categories = [
 ];
 
 export default function FAQSection() {
-  const [activeCategory, setActiveCategory] = useState("All questions");
+  const [activeCategory, setActiveCategory] =
+    useState("All questions");
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const filteredFaqs =
@@ -90,6 +92,7 @@ export default function FAQSection() {
   return (
     <section className="eco-faq" id="faq">
       <div className="eco-faq__container">
+        {/* LEFT INTRO */}
         <div className="eco-faq__intro">
           <div className="eco-faq__eyebrow">
             <span className="eco-faq__eyebrow-icon">
@@ -104,9 +107,9 @@ export default function FAQSection() {
           </h2>
 
           <p className="eco-faq__description">
-            New to EcoValuate? Find clear answers about electronic waste
-            valuation, AI-powered detection, our marketplace, and responsible
-            recycling.
+            New to EcoValuate? Find clear answers about electronic
+            waste valuation, AI-powered detection, our marketplace,
+            and responsible recycling.
           </p>
 
           <div className="eco-faq__trust-list">
@@ -132,6 +135,7 @@ export default function FAQSection() {
             </div>
           </div>
 
+          {/* CONTACT CARD */}
           <div className="eco-faq__contact-card">
             <div className="eco-faq__contact-icon">
               <MessageCircle size={23} />
@@ -139,11 +143,15 @@ export default function FAQSection() {
 
             <div className="eco-faq__contact-content">
               <h3>Still have questions?</h3>
+
               <p>
                 We are here to help you find the right answers.
               </p>
 
-              <Link href="/contact" className="eco-faq__contact-link">
+              <Link
+                href="/contact"
+                className="eco-faq__contact-link"
+              >
                 Contact our team
                 <ArrowRight size={16} />
               </Link>
@@ -154,8 +162,34 @@ export default function FAQSection() {
               size={32}
             />
           </div>
+
+          {/* FAQ IMAGES */}
+          <div className="eco-faq__images">
+            <div className="eco-faq__image-card eco-faq__image-card--main">
+              <Image
+                src="/FAQ_SECTION_PICTURE_1.png"
+                alt="Electronic devices and sustainable e-waste recycling"
+                width={600}
+                height={420}
+                sizes="(max-width: 760px) 55vw, 280px"
+                className="eco-faq__image"
+              />
+            </div>
+
+            <div className="eco-faq__image-card eco-faq__image-card--secondary">
+              <Image
+                src="/FAQ_SECTION_PICTURE_2.png"
+                alt="Secure electronics disposal and digital data protection"
+                width={600}
+                height={420}
+                sizes="(max-width: 760px) 40vw, 220px"
+                className="eco-faq__image"
+              />
+            </div>
+          </div>
         </div>
 
+        {/* RIGHT FAQ CONTENT */}
         <div className="eco-faq__content">
           <div className="eco-faq__topline">
             <div>
@@ -163,6 +197,7 @@ export default function FAQSection() {
                 <CircleHelp size={16} />
                 FREQUENTLY ASKED QUESTIONS
               </span>
+
               <p className="eco-faq__count">
                 Find answers to common questions about our platform.
               </p>
@@ -173,6 +208,7 @@ export default function FAQSection() {
             </span>
           </div>
 
+          {/* CATEGORY FILTERS */}
           <div
             className="eco-faq__filters"
             aria-label="Filter frequently asked questions"
@@ -197,6 +233,7 @@ export default function FAQSection() {
             ))}
           </div>
 
+          {/* ACCORDION */}
           <div className="eco-faq__list">
             {filteredFaqs.map((faq, index) => {
               const isOpen = openIndex === index;
@@ -242,6 +279,7 @@ export default function FAQSection() {
                       <span className="eco-faq__answer-category">
                         {faq.category}
                       </span>
+
                       <p>{faq.answer}</p>
                     </div>
                   </div>
@@ -250,6 +288,7 @@ export default function FAQSection() {
             })}
           </div>
 
+          {/* BOTTOM CTA */}
           <div className="eco-faq__bottom-note">
             <span className="eco-faq__bottom-icon">
               <Leaf size={18} />
@@ -257,9 +296,10 @@ export default function FAQSection() {
 
             <p>
               <strong>Better decisions. Less e-waste.</strong>
+
               <span>
-                Every informed choice is a step towards a more sustainable
-                future.
+                Every informed choice is a step towards a more
+                sustainable future.
               </span>
             </p>
 

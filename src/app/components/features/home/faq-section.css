@@ -85,6 +85,8 @@
   line-height: 1.95;
 }
 
+/* TRUST LIST */
+
 .eco-faq__trust-list {
   display: grid;
   gap: 16px;
@@ -112,7 +114,7 @@
   color: #00a878;
 }
 
-/* CONTACT CARD — WHITE */
+/* CONTACT CARD */
 
 .eco-faq__contact-card {
   position: relative;
@@ -190,6 +192,47 @@
   color: #e4f2e9;
 }
 
+/* FAQ IMAGES */
+
+.eco-faq__images {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: 14px;
+  margin-top: 32px;
+  padding: 8px 0 12px;
+}
+
+.eco-faq__image-card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e7ede9;
+  border-radius: 18px;
+  background: #f8faf9;
+  box-shadow: 0 10px 30px rgba(24, 59, 49, 0.035);
+}
+
+.eco-faq__image-card--main {
+  transform: translateY(-8px);
+}
+
+.eco-faq__image-card--secondary {
+  transform: translateY(12px);
+}
+
+.eco-faq__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 350ms ease;
+}
+
+.eco-faq__image-card:hover .eco-faq__image {
+  transform: scale(1.045);
+}
+
 /* FAQ HEADER */
 
 .eco-faq__content {
@@ -232,7 +275,7 @@
   font-weight: 700;
 }
 
-/* FILTERS — WHITE */
+/* FILTERS */
 
 .eco-faq__filters {
   display: flex;
@@ -260,7 +303,6 @@
 
 .eco-faq__filter:hover {
   border-color: #a8d8bf;
-  background: #ffffff;
   color: #07865f;
 }
 
@@ -329,7 +371,6 @@
 
 .eco-faq__item--open .eco-faq__question-number {
   border-color: #cce8d7;
-  background: #ffffff;
   color: #07865f;
 }
 
@@ -366,7 +407,6 @@
 .eco-faq__item--open .eco-faq__chevron {
   transform: rotate(180deg);
   border-color: #cde8d7;
-  background: #ffffff;
   color: #07865f;
 }
 
@@ -418,7 +458,7 @@
   }
 }
 
-/* BOTTOM CTA — WHITE */
+/* BOTTOM CTA */
 
 .eco-faq__bottom-note {
   display: flex;
@@ -514,6 +554,10 @@
   .eco-faq__bottom-link {
     margin-left: 52px;
   }
+
+  .eco-faq__images {
+    gap: 10px;
+  }
 }
 
 /* MOBILE */
@@ -556,6 +600,16 @@
   .eco-faq__contact-card {
     margin-top: 28px;
     padding: 19px;
+  }
+
+  .eco-faq__images {
+    gap: 10px;
+    margin-top: 26px;
+    padding-bottom: 12px;
+  }
+
+  .eco-faq__image-card {
+    border-radius: 14px;
   }
 
   .eco-faq__topline {

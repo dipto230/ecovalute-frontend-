@@ -3,6 +3,7 @@
 exports.__esModule = true;
 var react_1 = require("react");
 var link_1 = require("next/link");
+var image_1 = require("next/image");
 var lucide_react_1 = require("lucide-react");
 require("./faq-section.css");
 var faqs = [
@@ -96,7 +97,12 @@ function FAQSection() {
                         React.createElement(link_1["default"], { href: "/contact", className: "eco-faq__contact-link" },
                             "Contact our team",
                             React.createElement(lucide_react_1.ArrowRight, { size: 16 }))),
-                    React.createElement(lucide_react_1.ArrowDownRight, { className: "eco-faq__contact-decoration", size: 32 }))),
+                    React.createElement(lucide_react_1.ArrowDownRight, { className: "eco-faq__contact-decoration", size: 32 })),
+                React.createElement("div", { className: "eco-faq__images" },
+                    React.createElement("div", { className: "eco-faq__image-card eco-faq__image-card--main" },
+                        React.createElement(image_1["default"], { src: "/FAQ_SECTION_PICTURE_1.png", alt: "Electronic devices and sustainable e-waste recycling", width: 600, height: 420, sizes: "(max-width: 760px) 55vw, 280px", className: "eco-faq__image" })),
+                    React.createElement("div", { className: "eco-faq__image-card eco-faq__image-card--secondary" },
+                        React.createElement(image_1["default"], { src: "/FAQ_SECTION_PICTURE_2.png", alt: "Secure electronics disposal and digital data protection", width: 600, height: 420, sizes: "(max-width: 760px) 40vw, 220px", className: "eco-faq__image" })))),
             React.createElement("div", { className: "eco-faq__content" },
                 React.createElement("div", { className: "eco-faq__topline" },
                     React.createElement("div", null,
